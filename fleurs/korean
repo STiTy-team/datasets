@@ -1,0 +1,145 @@
+connecting to ws://localhost:8765 ...
+server: Qwen3-ASR Streaming Server  model=/home/skkai/STiTy/models/Qwen3-ASR-1.7B-ko-silence-v4c900-merged
+
+--- turn 0 (pair 0, role MIXED, lang='auto' target='en') ---
+  [  0.0-  4.2s] (ar)  [CUT at 4.2s / 8.8s] بدأت الثقافات والقبائل القديمة في الاحتفاظ بها لسهولة الوصول إلى الحليب والشعر واللحوم والجلود.
+  [  4.2- 14.6s] (ko)  [CUT at 10.4s / 13.3s] 고대 문명과 부족들은 우유, 털, 고기와 가죽을 손쉽게 이용하기 위해 그것들을 지키기 시작했다.
+  [ 14.6- 20.1s] (en)  [CUT at 5.5s / 7.8s] Ancient cultures and tribes began to keep them for easy access to milk, hair, meat, and skins.
+  final @ 20.13s (since finish: +0.00s) lang='ar' commit=seg [CUT ref]  wer=50% cer=48% bleu=19.1 chrf=49.2
+    original:    'بدأت الثقافات والقبائل القديمة في الاحتفاظ بها لس'
+    translation: 'Ancient cultures and tribes began to keep it as'
+  final @ 20.13s (since finish: +0.00s) lang='ko' commit=seg [CUT ref]  wer=0% cer=0% bleu=15.2 chrf=53.4
+    original:    '고대 문명과 부족들은 우유, 털, 고기와 가죽을 손쉽게 이용하기 위해 그것들을 지키기 시작했다.'
+    translation: 'Ancient civilizations and tribes began keeping milk, fur, meat and leather for easy access.'
+  final @ 20.21s (since finish: +0.08s) lang='en' commit=seg [CUT ref]  wer=29% cer=28% bleu=62.0 chrf=75.0
+    original:    'Cultures and tribes began to keep them for easy access to milk, hair,'
+    translation: 'Cultures and tribes began to keep them for easy access to milk, hair,'
+  timing: audio=20.13s  finish_sent_at=20.133s  first_final=20.133s  last_final=20.212s  turn_wall=25.217s  realtime_factor=1.25
+
+--- turn 1 (pair 1, role MIXED, lang='auto' target='en') ---
+  [  0.0-  3.4s] (ar)  [CUT at 3.4s / 6.6s] من الشمال، يحد الساحل الإفريقي المنطقة، ويحدّها المحيط الأطلسي من الجنوب والغرب.
+  [  3.4-  5.1s] (ko)  [CUT at 1.7s / 5.1s] 북쪽은 사헬, 남쪽과 서쪽은 대서양이 접해 있습니다.
+  [  5.1- 10.1s] (en)  [CUT at 5.0s / 7.1s] In the north the region is bounded by the Sahel, and in the south and west by the Atlantic Ocean.
+  final @ 10.11s (since finish: +0.00s) lang='ar' commit=seg [CUT ref]  wer=75% cer=50% bleu=8.3 chrf=34.6
+    original:    'من الشمال يحد الساحل الأفريقي المنطقة ويح'
+    translation: 'To the north, the region is bordered by the African coast'
+  final @ 10.11s (since finish: +0.00s) lang='ko' commit=seg [CUT ref]  wer=100% cer=93% bleu=0.0 chrf=2.6
+    original:    '북적은'
+    translation: 'crowded'
+  final @ 10.23s (since finish: +0.13s) lang='en' commit=seg [CUT ref]  wer=5% cer=1% bleu=87.9 chrf=96.4
+    original:    'In the north, the region is bounded by the Sahel, and in the south and west by the Atlantic Ocean.'
+    translation: 'In the north, the region is bounded by the Sahel, and in the south and west by the Atlantic Ocean.'
+  timing: audio=10.11s  finish_sent_at=10.107s  first_final=10.107s  last_final=10.234s  turn_wall=15.238s  realtime_factor=1.51
+
+--- turn 2 (pair 2, role MIXED, lang='auto' target='en') ---
+  [  0.0- 10.4s] (ar)  [CUT at 10.4s / 13.7s] لقد جعل دفاع الفريق المنضبط ومهاراته في التعامل مع الكرة وعمله الجماعيُّ الممتاز، فريق متميز وكان من الواضح أن هذا هو الفريق الذي يجب التغلب عليه.
+  [ 10.4- 19.7s] (ko)  [CUT at 9.3s / 17.9s] 잘 훈련된 수비 기술, 공 핸들링 기술 및 훌륭한 팀워크가 그들을 돋보이게 했고 이것으로 팀이 승리를 거머쥘 것이라는 사실은 누가 봐도 명백했습니다.
+  [ 19.7- 23.0s] (en)  [CUT at 3.3s / 7.9s] Their disciplined defence, ball handling skills and excellent team work made them stand out and it was clear that this was the team to beat.
+  final @ 22.99s (since finish: +0.00s) lang='ar' commit=seg [CUT ref]  wer=27% cer=22% bleu=23.2 chrf=78.0
+    original:    'لقد جعل دفاع الفريق المنضبط ومهاراته في التعامل مع الكرة وعمله الجماعي الممتاز فريق متميز وكان من الواضح أن هذا هو'
+    translation: "The team's disciplined defence, ball-handling skills and excellent teamwork made them a standout team and it was clear that they were"
+  final @ 22.99s (since finish: +0.00s) lang='ko' commit=seg [CUT ref]  wer=41% cer=47% bleu=9.7 chrf=47.5
+    original:    '잘 훈련된 수비 기술, 공 핸들링 기술 및 훌륭한 팀워크가 그들을 돋보이게 했고'
+    translation: 'Their well-drilled defensive skills, ball-handling skills and great teamwork made them stand out.'
+  final @ 23.07s (since finish: +0.08s) lang='en' commit=seg [CUT ref]  wer=92% cer=79% bleu=0.1 chrf=20.8
+    original:    'Their disciplined defense bought'
+    translation: 'Their disciplined defense bought'
+  timing: audio=22.99s  finish_sent_at=22.991s  first_final=22.991s  last_final=23.074s  turn_wall=28.08s  realtime_factor=1.22
+
+--- turn 3 (pair 3, role MIXED, lang='auto' target='en') ---
+  [  0.0-  5.5s] (ar)  [CUT at 5.5s / 9.1s] بالنسبة لمنتخب جنوب أفريقيا للرغبي، أنهى هذا سلسلة هزائم استمرّت لخمس مباريات.
+  [  5.5- 12.1s] (ko)  [CUT at 6.7s / 8.5s] 스프링복스의 경우, 다섯 경기 연패를 기록했다.
+  [ 12.1- 14.8s] (en)  [CUT at 2.7s / 4.0s] For the Springboks, it ended a five-match losing streak.
+  final @ 14.84s (since finish: +0.00s) lang='ar' commit=seg [CUT ref]  wer=50% cer=36% bleu=5.8 chrf=22.1
+    original:    'بالنسبة لمنتخب جنوب أفريقيا للرغبي، أمهى هذا سلسلة.'
+    translation: 'For the South African national rugby team, this has been the highlight of a series.'
+  final @ 14.84s (since finish: +0.00s) lang='ko' commit=seg [CUT ref]  wer=100% cer=69% bleu=0.8 chrf=21.8
+    original:    '스프링 복스의 경우'
+    translation: 'For Springboks'
+  final @ 14.84s (since finish: +0.00s) lang='ko' commit=seg [CUT ref]  wer=33% cer=42% bleu=4.5 chrf=13.7
+    original:    '다섯 경기 연패를 기록했다.'
+    translation: 'They lost five games in a row.'
+  final @ 14.92s (since finish: +0.08s) lang='en' commit=seg [CUT ref]  wer=78% cer=68% bleu=10.0 chrf=22.7
+    original:    'For the spring box, it'
+    translation: 'For the spring box, it'
+  timing: audio=14.84s  finish_sent_at=14.841s  first_final=14.841s  last_final=14.921s  turn_wall=19.928s  realtime_factor=1.34
+
+--- turn 4 (pair 4, role MIXED, lang='auto' target='en') ---
+  [  0.0-  5.4s] (ar)  [CUT at 5.4s / 9.6s] معظمُ تلسكوباتِ البحوثِ الحديثة هي منشآتٌ هائلةٌ في المناطق النائيّة ذات الظّروف الجويّة الملائمة.
+  [  5.4-  9.3s] (ko)  [CUT at 4.0s / 8.0s] 현대 연구용 망원경의 대부분은 유리한 대기 조건을 갖춘 외딴 지역에 위치한 방대한 시설입니다.
+  [  9.3- 14.1s] (en)  [CUT at 4.8s / 7.2s] Most modern research telescopes are enormous facilities in remote areas with favorable atmospheric conditions.
+  final @ 14.11s (since finish: +0.00s) lang='ar' commit=seg [CUT ref]  wer=79% cer=53% bleu=31.9 chrf=54.8
+    original:    'معظم تلسكوبات البحوث الحديثة هي منشآت هائلة في'
+    translation: 'Most modern research telescopes are enormous facilities'
+  final @ 14.11s (since finish: +0.00s) lang='ko' commit=seg [CUT ref]  wer=54% cer=50% bleu=31.9 chrf=62.4
+    original:    '현대 연구용 망원경의 대부분은 유리한 대기 조건'
+    translation: 'Most modern research telescopes operate under favorable atmospheric conditions.'
+  final @ 14.11s (since finish: +0.00s) lang='en' commit=seg [CUT ref]  wer=86% cer=71% bleu=5.8 chrf=31.8
+    original:    'Research telescopes are enormous.'
+    translation: 'Research telescopes are enormous.'
+  final @ 14.21s (since finish: +0.10s) lang='en' commit=seg [CUT ref]  wer=57% cer=63% bleu=22.3 chrf=40.7
+    original:    'facilities in remote areas with favorable'
+    translation: 'facilities in remote areas with favorable'
+  timing: audio=14.11s  finish_sent_at=14.11s  first_final=14.11s  last_final=14.214s  turn_wall=19.219s  realtime_factor=1.36
+
+--- turn 5 (pair 5, role MIXED, lang='auto' target='en') ---
+  [  0.0-  3.4s] (ar)  [CUT at 3.4s / 5.3s] انفجرت قنبلة واحدة خارج مكتب الحاكم العام.
+  [  3.4-  6.6s] (ko)  [CUT at 3.2s / 8.3s] 폭탄 한 발이 총독 집무실 밖에서 폭발했다.
+  [  6.6-  9.8s] (en)  [CUT at 3.2s / 4.9s] One bomb exploded outside the governor general's office.
+  final @ 9.79s (since finish: +0.00s) lang='ar' commit=seg [CUT ref]  wer=29% cer=33% bleu=32.6 chrf=54.7
+    original:    'انفجرت قنبلة واحدة خارج مكتب'
+    translation: 'One bomb exploded outside an office'
+  final @ 9.87s (since finish: +0.08s) lang='ko' commit=seg [CUT ref]  wer=71% cer=75% bleu=1.5 chrf=5.6
+    original:    '폭탄 한 발'
+    translation: 'a bomb'
+  [!] no output at all for: en(cut)
+  timing: audio=9.79s  finish_sent_at=9.79s  first_final=9.79s  last_final=9.874s  turn_wall=14.878s  realtime_factor=1.52
+
+--- turn 6 (pair 6, role MIXED, lang='auto' target='en') ---
+  [  0.0-  6.8s] (ar)  [CUT at 6.8s / 10.6s] ونتيجة لذلك، يدخن الفنانون لفائف القنب على خشبة المسرح، ويشجع المسرح نفسه الجمهور على مشاركتهم في ذلك.
+  [  6.8- 10.1s] (ko)  [CUT at 3.3s / 10.9s] 결과적으로 무대에서 공연자들이 마리화나 담배를 피우고 극장 자체에서 관객들에게 참여하도록 독려하고 있다.
+  [ 10.1- 14.4s] (en)  [CUT at 4.3s / 7.3s] As a result, the performers smoke cannabis joints on stage, and the theatre itself is encouraging the audience to join in.
+  final @ 14.42s (since finish: +0.00s) lang='ar' commit=seg [CUT ref]  wer=53% cer=44% bleu=10.9 chrf=32.2
+    original:    'ونتيجة لذلك يدخن الفنانون لفائف القنب على خشبة المسرح ويشد'
+    translation: 'As a result, artists smoke cannabis on stage and get high'
+  final @ 14.42s (since finish: +0.00s) lang='ko' commit=seg [CUT ref]  wer=83% cer=76% bleu=4.3 chrf=20.6
+    original:    '결과적으로 무대에서 공연하는'
+    translation: 'As a result, performing on stage'
+  final @ 14.49s (since finish: +0.08s) lang='en' commit=seg [CUT ref]  wer=67% cer=43% bleu=11.5 chrf=50.4
+    original:    'as a result the performer smoked cannabis joints on stage and the theater'
+    translation: 'as a result the performer smoked cannabis joints on stage and the theater'
+  timing: audio=14.41s  finish_sent_at=14.416s  first_final=14.416s  last_final=14.493s  turn_wall=19.501s  realtime_factor=1.35
+
+--- turn 7 (pair 7, role MIXED, lang='auto' target='en') ---
+  [  0.0- 12.8s] (ar)  [CUT at 12.8s / 18.0s] مع ذلك، فإن النسبة المئوية لمرض السلّ شديد المقاومة للأدوية في إجمالي مجموعة المصابين بالسلّ ما تزال مُنخفضة؛ حيث يُصاب 6000 من إجمالي 330000 شخص في أي لحظة محددة بجنوب إفريقيا.
+  [ 12.8- 28.6s] (ko)  [CUT at 15.8s / 19.6s] 그러나 전체 결핵 환자 중 XDR-TB가 있는 비율은 그리 높지 않은 듯합니다. 어느 특정 순간에 남아프리카에서 결핵에 걸린 환자가 330,000명이라고 할 때, 6,000명 정도가 XDR-TB가 있는 수준입니다.
+  [ 28.6- 33.6s] (en)  [CUT at 5.0s / 13.0s] However, the percentage of XDR-TB in the entire group of people with tuberculosis still seems to be low; 6,000 of the total 330,000 people infected at any particular moment in South Africa.
+  final @ 33.57s (since finish: +0.00s) lang='ar' commit=seg [CUT ref]  wer=48% cer=30% bleu=20.0 chrf=49.8
+    original:    'بذلك فإن النسبة المئوية لمرض السل شديدة المقاومة للأدوية في إجمالي مجموعة المصابين بالسل ما تزال منخفضة حيث يصاب 6000 من إجمالي'
+    translation: 'Thus, the percentage of highly drug-resistant tuberculosis in the total group of people infected with tuberculosis is still low, as 6,000 of the total are infected.'
+  final @ 33.57s (since finish: +0.00s) lang='ar' commit=seg [CUT ref]  wer=100% cer=94% bleu=0.1 chrf=3.8
+    original:    'ثلاث مية وتل.'
+    translation: 'Three hundred and one hill.'
+  final @ 33.57s (since finish: +0.00s) lang='ko' commit=seg [CUT ref]  wer=67% cer=64% bleu=4.6 chrf=18.0
+    original:    '그러나 전체 결핵 환자 중 XDR TB가 있는 비율은 그리 높지 않은 듯 합니다.'
+    translation: 'However, the proportion of all TB patients with XDR TB does not seem to be very high.'
+  final @ 33.57s (since finish: +0.00s) lang='ko' commit=seg [CUT ref]  wer=70% cer=67% bleu=5.9 chrf=30.3
+    original:    '어느 특정 순간에 남아프리카에서 결핵에 걸린 환자가 33만명이라고 할 때'
+    translation: 'At any given moment, there are 330,000 patients with tuberculosis in South Africa.'
+  final @ 33.66s (since finish: +0.09s) lang='ko' commit=seg [CUT ref]  wer=96% cer=89% bleu=0.1 chrf=9.2
+    original:    '6천명 정도가 XDR TB가'
+    translation: 'About 6,000 people have XDR TB'
+  [!] no output at all for: en(cut)
+  timing: audio=33.57s  finish_sent_at=33.572s  first_final=33.573s  last_final=33.662s  turn_wall=38.667s  realtime_factor=1.15
+
+done: 8/8 produced output, 0/8 empty, 0/8 errored
+  time_to_first_final_sec: mean=17.50 p50=14.63 p90=22.99 max=33.57
+  time_to_last_final_sec:  mean=17.59 p50=14.71 p90=23.07 max=33.66
+  realtime_factor:         mean=1.34 p90=1.51 max=1.52  (>1 = falling behind a live conversation)
+  language detection accuracy: 100% (27/27 matched segments)
+  segments with NO output at all: 2/24 (8%)
+  commit reasons: {'seg': 27}
+  WER (CUT segments — expected worse, scored vs. the FULL sentence): mean=60.8% p50=66.7% n=27
+  CER (CUT segments — expected worse, scored vs. the FULL sentence): mean=53.1% p50=50.0% n=27
+  BLEU (CUT segments — expected worse, scored vs. the FULL sentence): mean=15.9 p50=9.7 n=27
+  chrF (CUT segments — expected worse, scored vs. the FULL sentence): mean=37.1 p50=32.2 n=27

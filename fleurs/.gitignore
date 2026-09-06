@@ -1,0 +1,14 @@
+# Raw FLEURS downloads — regenerate with ./install.sh, don't commit
+# (hundreds of MB of audio per language).
+data/
+
+# Generated conversation manifests + spliced audio — regenerate with
+# build_conversation_manifest.py. Manifests embed absolute paths tied to
+# the machine/checkout that built them, so they can't be shared via git
+# anyway (same convention as STiTy's own evaluation/ast/manifests/).
+conversations/*
+!conversations/.gitkeep
+
+# Correlated STiTy server output (--server-log-file target) — live,
+# machine/session-specific debug output, not something to commit.
+*.log
