@@ -1,0 +1,47 @@
+{
+  "source_log": "run_swap_en.jsonl",
+  "manifest": "conversations/ko_ar_en_test.jsonl",
+  "by_language": {
+    "ar": {
+      "n_scored": 57,
+      "n_dropped": 43,
+      "wer_reported": 0.4953,
+      "cer_reported": 0.3906,
+      "wer_normalized": 0.4233,
+      "cer_normalized": 0.3795,
+      "keep_ratio_audio": 0.6375,
+      "hyp_ref_word_ratio": 0.6876,
+      "deletion_floor_wer": 0.3124,
+      "excess_over_floor": 0.1109
+    },
+    "en": {
+      "n_scored": 80,
+      "n_dropped": 20,
+      "wer_reported": 0.7251,
+      "cer_reported": 0.6305,
+      "wer_normalized": 0.6901,
+      "cer_normalized": 0.6267,
+      "keep_ratio_audio": 0.5801,
+      "hyp_ref_word_ratio": 0.7023,
+      "deletion_floor_wer": 0.2977,
+      "excess_over_floor": 0.3924
+    },
+    "ko": {
+      "n_scored": 60,
+      "n_dropped": 40,
+      "wer_reported": 0.4812,
+      "cer_reported": 0.3896,
+      "wer_normalized": 0.4415,
+      "cer_normalized": 0.3865,
+      "keep_ratio_audio": 0.6213,
+      "hyp_ref_word_ratio": 0.7244,
+      "deletion_floor_wer": 0.2756,
+      "excess_over_floor": 0.1659
+    }
+  },
+  "overall": {
+    "wer_normalized": 0.5372,
+    "cer_normalized": 0.482,
+    "n_scored": 197
+  }
+}

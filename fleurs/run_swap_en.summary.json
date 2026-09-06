@@ -1,0 +1,959 @@
+{
+  "run": {
+    "wall_time": "2026-09-06T20:04:01.423547+00:00",
+    "model_path": "/home/skkai/STiTy/models/Qwen3-ASR-1.7B-en-silence-c80-merged",
+    "host": "localhost",
+    "port": 8765,
+    "manifest": "conversations/ko_ar_en_test.jsonl",
+    "n_turns_requested": 0,
+    "n_turns_run": 100,
+    "src_lang": "auto",
+    "target_lang": "en",
+    "chunk_ms": 200,
+    "drain_grace_sec": 5.0
+  },
+  "outcome": {
+    "ok": 100,
+    "empty": 0,
+    "errors": 0,
+    "total": 100
+  },
+  "timing": {
+    "time_to_first_final_sec": {
+      "mean": 21.4497,
+      "p50": 20.3215,
+      "p90": 28.456,
+      "max": 47.322,
+      "n": 100
+    },
+    "time_to_last_final_sec": {
+      "mean": 21.6339,
+      "p50": 21.1005,
+      "p90": 28.528,
+      "max": 47.51,
+      "n": 100
+    },
+    "realtime_factor": {
+      "mean": 1.2666,
+      "p50": 1.255,
+      "p90": 1.37,
+      "max": 1.55,
+      "n": 100
+    }
+  },
+  "reliability": {
+    "language_detection_accuracy": 0.9562,
+    "segments_total": 300,
+    "segments_dropped": 103,
+    "segments_dropped_rate": 0.3433,
+    "unmatched_finals": 13,
+    "commit_reasons": {
+      "seg": 297
+    }
+  },
+  "accuracy_by_language": {
+    "ar": {
+      "segments_total": 100,
+      "segments_dropped": 43,
+      "segments_dropped_rate": 0.43,
+      "wer": {
+        "mean": 0.4953,
+        "p50": 0.4762,
+        "p90": 0.75,
+        "max": 0.9412,
+        "n": 57
+      },
+      "cer": {
+        "mean": 0.3906,
+        "p50": 0.3608,
+        "p90": 0.6861,
+        "max": 0.8362,
+        "n": 57
+      },
+      "bleu": {
+        "mean": 21.555,
+        "p50": 18.3106,
+        "p90": 38.7777,
+        "max": 74.1945,
+        "n": 57
+      },
+      "chrf": {
+        "mean": 45.2864,
+        "p50": 43.3847,
+        "p90": 64.6489,
+        "max": 89.684,
+        "n": 57
+      }
+    },
+    "en": {
+      "segments_total": 100,
+      "segments_dropped": 20,
+      "segments_dropped_rate": 0.2,
+      "wer": {
+        "mean": 0.7251,
+        "p50": 0.7417,
+        "p90": 1.0,
+        "max": 1.9231,
+        "n": 80
+      },
+      "cer": {
+        "mean": 0.6305,
+        "p50": 0.6307,
+        "p90": 0.8525,
+        "max": 1.4762,
+        "n": 80
+      },
+      "bleu": {
+        "mean": 25.7886,
+        "p50": 23.6364,
+        "p90": 54.2877,
+        "max": 70.8074,
+        "n": 80
+      },
+      "chrf": {
+        "mean": 45.8525,
+        "p50": 50.0127,
+        "p90": 72.7126,
+        "max": 78.7796,
+        "n": 80
+      }
+    },
+    "ko": {
+      "segments_total": 100,
+      "segments_dropped": 40,
+      "segments_dropped_rate": 0.4,
+      "wer": {
+        "mean": 0.4812,
+        "p50": 0.4821,
+        "p90": 0.8462,
+        "max": 1.0,
+        "n": 60
+      },
+      "cer": {
+        "mean": 0.3896,
+        "p50": 0.3902,
+        "p90": 0.7838,
+        "max": 0.8871,
+        "n": 60
+      },
+      "bleu": {
+        "mean": 17.2496,
+        "p50": 12.1542,
+        "p90": 38.6145,
+        "max": 55.6235,
+        "n": 60
+      },
+      "chrf": {
+        "mean": 42.1917,
+        "p50": 41.6806,
+        "p90": 68.0139,
+        "max": 80.4245,
+        "n": 60
+      }
+    }
+  },
+  "accuracy_by_cut": {
+    "cut": {
+      "n": 197,
+      "wer": {
+        "mean": 0.5843,
+        "p50": 0.5556,
+        "p90": 0.9286,
+        "max": 1.9231,
+        "n": 197
+      },
+      "cer": {
+        "mean": 0.4877,
+        "p50": 0.4848,
+        "p90": 0.8167,
+        "max": 1.4762,
+        "n": 197
+      },
+      "bleu": {
+        "mean": 21.9629,
+        "p50": 17.4105,
+        "p90": 48.7304,
+        "max": 74.1945,
+        "n": 197
+      },
+      "chrf": {
+        "mean": 44.5737,
+        "p50": 44.118,
+        "p90": 70.0295,
+        "max": 89.684,
+        "n": 197
+      }
+    },
+    "uncut": {
+      "n": 0,
+      "wer": null,
+      "cer": null,
+      "bleu": null,
+      "chrf": null
+    }
+  },
+  "accuracy_penalized_for_drops": {
+    "wer": {
+      "mean": 0.727,
+      "p50": 0.7817,
+      "p90": 1.0,
+      "max": 1.9231,
+      "n": 300
+    },
+    "cer": {
+      "mean": 0.6636,
+      "p50": 0.6959,
+      "p90": 1.0,
+      "max": 1.4762,
+      "n": 300
+    },
+    "bleu": {
+      "mean": 14.4223,
+      "p50": 6.4216,
+      "p90": 41.535,
+      "max": 74.1945,
+      "n": 300
+    },
+    "chrf": {
+      "mean": 29.2701,
+      "p50": 29.7495,
+      "p90": 67.0029,
+      "max": 89.684,
+      "n": 300
+    }
+  },
+  "commit_lag_by_reason": {
+    "seg": {
+      "mean": 6.6292,
+      "p50": 5.718,
+      "p90": 15.821,
+      "max": 29.118,
+      "n": 197
+    }
+  },
+  "commit_lag_by_language": {
+    "ar": {
+      "mean": 7.2816,
+      "p50": 7.109,
+      "p90": 11.07,
+      "max": 16.655,
+      "n": 57
+    },
+    "en": {
+      "mean": 0.0796,
+      "p50": 0.081,
+      "p90": 0.151,
+      "max": 0.233,
+      "n": 80
+    },
+    "ko": {
+      "mean": 14.7421,
+      "p50": 13.5185,
+      "p90": 19.68,
+      "max": 29.118,
+      "n": 60
+    }
+  },
+  "worst_segments": [
+    {
+      "turn_index": 34,
+      "lang": "en",
+      "cut": true,
+      "wer": 1.9230769230769231,
+      "expected_text": "Plants make their food from the sun by photosynthesis. They also provide shade.",
+      "original": "Plants use the sun's energy to make food through photosynthesis. They also provide shade from the sun through the use of shade cloth. Plants make their food from the sun,"
+    },
+    {
+      "turn_index": 22,
+      "lang": "en",
+      "cut": true,
+      "wer": 1.7857142857142858,
+      "expected_text": "The hot chocolate is up to Belgian standards. Fruit juices are pricey but excellent.",
+      "original": "Hot chocolate is Belgian standard. The chocolate is Belgian standard. The fruits are excellent, although it is a bit hot. The hot chocolate is up to Belgian standards. Fruit juice"
+    },
+    {
+      "turn_index": 80,
+      "lang": "en",
+      "cut": true,
+      "wer": 1.2941176470588236,
+      "expected_text": "Madagascar is by far the biggest, and a continent on its own when it comes to wildlife.",
+      "original": "Madagascar is in the process of becoming a global leader in the conservation of wild animals. It is a unique and distinctive island. Madagascar is"
+    },
+    {
+      "turn_index": 56,
+      "lang": "en",
+      "cut": true,
+      "wer": 1.1428571428571428,
+      "expected_text": "A full 20 percent of the water that pours out of the planet's rivers into the oceans comes from the Amazon.",
+      "original": "Twenty percent of the water that comes from the rivers of the planet flows into the Amazon. Full twenty percent of the water that pours out of the plains rivers into the oceans"
+    },
+    {
+      "turn_index": 47,
+      "lang": "en",
+      "cut": true,
+      "wer": 1.1363636363636365,
+      "expected_text": "If you're not used to driving on country roads, keep your wits about you: steep grades, narrow lanes, and sharp curves predominate.",
+      "original": "If you are not used to driving on the country roads, be careful, there are always sharp bends and ditches. If you're not used to driving on country roads, keep your wits about"
+    },
+    {
+      "turn_index": 12,
+      "lang": "en",
+      "cut": true,
+      "wer": 1.04,
+      "expected_text": "The city is in stark contrast to the rest of the country's cities, because it has more of an Arabic flair than of an African.",
+      "original": "This city is more than Africa. The city contradicts the rest of the country in a very strong way. The city is in stark contrast to the rest of the country's cities, because it has more of"
+    },
+    {
+      "turn_index": 0,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "마찬가지로, 솅겐 비자를 소지하면 각 솅겐 회원국에 개별적으로 비자를 신청할 필요가 없으므로 시간, 비용 및 서류 작업이 줄어듭니다.",
+      "original": "마찬가지로 생겐 피자를 소지하면,"
+    },
+    {
+      "turn_index": 37,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "그래서 단순히 라벨로 표기했을 가능성이 높다.",
+      "original": "그래서,"
+    },
+    {
+      "turn_index": 51,
+      "lang": "en",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "As a result, the performers smoke cannabis joints on stage, and the theatre itself is encouraging the audience to join in.",
+      "original": "We need to be more careful."
+    },
+    {
+      "turn_index": 62,
+      "lang": "en",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "Parisians have a reputation for being egocentric, rude and arrogant.",
+      "original": "Paris people are self-centered."
+    }
+  ],
+  "dropped_segments": [
+    {
+      "turn_index": 0,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "وعلى نحو مماثل، فمن خلال الحصول على تأشيرة شنغن، لن تكون في احتياج إلى التقدم بطلب للحصول على تأشيرات الدخول لكل دولة من البلدان الأعضاء في شنغن على حدة، وبالتالي توفير الوقت والمال والأعمال الورقية."
+    },
+    {
+      "turn_index": 1,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Several large television screens were installed in various places in Rome to let the people watch the ceremony."
+    },
+    {
+      "turn_index": 2,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "But there are a lot of things about birds that still look like a dinosaur."
+    },
+    {
+      "turn_index": 3,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Swirl the two dry powders together and then, with clean wet hands, squeeze them into a ball."
+    },
+    {
+      "turn_index": 4,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "연예 뉴스 웹사이트인 TMZ는 사진사가 세풀베다 대로 맞은편에 차를 세워 두고, 길을 건너기 전에 계속해서 경찰서 사진을 찍으려 시도하였으며, 이에 교통정리를 하던 캘리포니아 고속도로 경찰이 두 번이나 물러나도록 명령했던 것에 대해 시인하였습니다."
+    },
+    {
+      "turn_index": 4,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تبين موقع TMZ الإخباري الترفيهي أن المصور أوقف مركبته على الجانب الآخر من شارع سيبولفيدا بوليفارد وحاول التقاط صور لحاجز الشرطة قبل عبور الطريق والمتابعة، مما دفع ضابط شرطة دورية الطرق السريعة في كاليفورنيا إلى عمل توقيف لحركة المرور لأمره بالعودة مرتين."
+    },
+    {
+      "turn_index": 5,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "There are still many men and women alive who survived their time here, and many more who had loved ones who were murdered or worked to death there, Jews and non-Jews alike."
+    },
+    {
+      "turn_index": 7,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "خضعت الكنيسة الكاثوليكية، التي أصبحت غنية وقوية، للتدقيق خلال هذه الفترة من التاريخ الأوروبي."
+    },
+    {
+      "turn_index": 9,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "비디오 녹화를 사용함으로써 단 몇 밀리초 동안만 지속되는 미세한 표정, 얼굴 움직임의 해석에 중요한 발견을 하게 되었다."
+    },
+    {
+      "turn_index": 9,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "أدى استخدام تسجيلات الفيديو إلى اكتشافات هامة في مجال تفسير التعابير الدقيقة للوجه، وهي حركات للوجه تستمر لبضع أجزاء من الثانية الواحدة."
+    },
+    {
+      "turn_index": 11,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "The 25 Dunlap broadsides still known to exist are the oldest surviving copies of the document. The original handwritten copy has not survived."
+    },
+    {
+      "turn_index": 12,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "이 도시는 아프리카보다 아랍 성향이 더 있기 때문에 말리의 다른 도시들과 극명한 대조를 이루고 있습니다."
+    },
+    {
+      "turn_index": 12,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تتناقض المدينة بشكل صارخ مع بقية مدن الدولة، لأنها تتميز بطابع عربي أكثر منه إفريقي."
+    },
+    {
+      "turn_index": 13,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "towards the end of the Middle Ages western Europe began to develop their own style. one of the biggest developments of the time as a result of the crusades people began to use buttons to fasten clothing."
+    },
+    {
+      "turn_index": 16,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "구조물을 긁거나 낙서해서 현장을 더럽히지 마시오."
+    },
+    {
+      "turn_index": 17,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "식물은 인간이 숨쉬는 산소를 만들고, 인간이 호흡으로 내뿜는 이산화탄소(carbon-dioxide)를 섭취한다."
+    },
+    {
+      "turn_index": 17,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تنتج النباتات الأكسجين الذي يتنفسه البشر، ويمتصون ثاني أكسيد الكربون الذي يخلفه البشر (أي الزفير)."
+    },
+    {
+      "turn_index": 18,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "يمكن فقط نقل الطفرات في خلايا الخط الجرثومي إلى الأطفال، بينما يمكن أن تسبب الطفرات في أماكن أخرى موت الخلايا أو السرطان."
+    },
+    {
+      "turn_index": 21,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "그러나 정보 교환이 느렸기 때문에, 서부 쪽 양식은 25~30년 뒤떨어질 수 있었습니다."
+    },
+    {
+      "turn_index": 21,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "وعلى الرغم من ذلك، فنظرا لبطء قنوات التواصل، قد تتأخر الأنماط في الغرب قدر ما يقارب 25 إلى 30 سنة."
+    },
+    {
+      "turn_index": 22,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "핫 초콜릿은 벨기에 표준에 따릅니다. 과일 주스는 비싸지만 아주 맛있습니다."
+    },
+    {
+      "turn_index": 22,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "الشوكولاتة الساخنة متوافقة مع المعايير البلجيكية. عصائر الفاكهة ممتازة على الرغم من أنها باهظة الثمن."
+    },
+    {
+      "turn_index": 23,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "지역별 및 계절별 악천후 현상에는 폭풍설, 눈보라, 진눈깨비 및 황사 등이 포함됩니다."
+    },
+    {
+      "turn_index": 23,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تشمل الظواهر المناخية الإقليمية والموسمية الشديدة: العواصف الثلجية والجليدية والترابية."
+    },
+    {
+      "turn_index": 24,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "كلما قل التوتر، كلما زادت الإيجابيّة التي تمنحها قوة الحياة. كل شخص لديه القدرة الكامنة على إيجاد السلام والرضا التامين."
+    },
+    {
+      "turn_index": 24,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "The lower the tension, the more positive the life force present. Every person has the potential to find absolute peace and contentment."
+    },
+    {
+      "turn_index": 26,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "سرعان ما بادرت بريطانيا بمحاصرة ألمانيا بحرًيا بعد اندلاع المناوشات."
+    },
+    {
+      "turn_index": 27,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "같은 줄을 따라, 남자는 무릎을 덮는 바지를 입을 것을 요구받는다."
+    },
+    {
+      "turn_index": 28,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "북쪽은 사헬, 남쪽과 서쪽은 대서양이 접해 있습니다."
+    },
+    {
+      "turn_index": 28,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "من الشمال، يحد الساحل الإفريقي المنطقة، ويحدّها المحيط الأطلسي من الجنوب والغرب."
+    },
+    {
+      "turn_index": 29,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "للأسف، دراسة حركة السير صعبة لأنه لا يمكن توقع سلوك السائق بيقين مائة في المئة."
+    },
+    {
+      "turn_index": 30,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "훈는 사임했고 내각에서 에드 데이비 하원 의원에 의해 교체될 예정이다. 노먼 램 하원 의원은 데이비가 떠나는 사업부 장관직을 밭을 것으로 예산된다."
+    },
+    {
+      "turn_index": 30,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "استقال هوهن وسيتم استبداله في مجلس الوزراء بعضو البرلمان إيد ديفي. من المتوقع أن يأخذ عضو البرلمان نورمان لامب وظيفة وزير الأعمال التي سيتركها ديفي."
+    },
+    {
+      "turn_index": 32,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "\"식물은 자연환경에서 가장 좋아 보이므로 \"\"딱 하나\"\"의 표본은 괜찮겠지 라는 유혹은 버려야 한다.\""
+    },
+    {
+      "turn_index": 33,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "미국 공병대는 시간당 6인치의 강우량이 기 파손된 제방을 무너뜨릴 수 있다고 추정했다."
+    },
+    {
+      "turn_index": 34,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "식물들은 태양을 이용한 광합성을 통해 자신들의 음식을 만들고, 또한 그늘을 제공합니다."
+    },
+    {
+      "turn_index": 34,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تصنع النباتات طعامها من الشمس من خلال التمثيل الضوئي. كما يوفرون الظل."
+    },
+    {
+      "turn_index": 35,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "النقد الليبرالي لمجهود إعادة الإعمار قد ركز على منح عقود إعادة الإعمار للمطلعين في واشنطن."
+    },
+    {
+      "turn_index": 36,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "미국 체조 협회는 미국 올림픽 위원회의 서한을 지지하며, 미국의 전 운동선수가 안전한 환경을 가질 수 있도록 돕는 올림픽 관계자의 절대적 필요성을 인정합니다."
+    },
+    {
+      "turn_index": 38,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "이제 사람들은 컴퓨터 화면에 메시지를 쓰고 연필깎기를 가까이할 필요가 전혀 없습니다."
+    },
+    {
+      "turn_index": 41,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "대서양 허리케인의 열 번째 폭풍인 아열대 폭풍 제리가 오늘 대서양에서 생성되었습니다."
+    },
+    {
+      "turn_index": 42,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "유럽은 상대적으로 작지만 많은 독립 국가들이 있는 대륙입니다. 보통 여러 국가를 여행하는 것은 비자 신청과 여권 심사를 여러 번 거쳐야 한다는 것을 의미합니다."
+    },
+    {
+      "turn_index": 42,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "أوروبا قارة صغيرة نسبياً ولكن فيها العديد من الدول المستقلة. وفي ظل الظروف العادية، فإن السفر عبر عدة بلدان يعني اضطرارك إلى المرور عبر طلبات الحصول على التأشيرة ومراقبة جوازات السفر عدة مرات."
+    },
+    {
+      "turn_index": 43,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تعمل القنبلة الانشطارية على أساس أنها تجمع الطاقة لتكوِّن نواة مليئة بالبروتونات والنيوترونات."
+    },
+    {
+      "turn_index": 44,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "인터넷은 집단적인 커뮤니케이션과 사람과 사람 간의 커뮤니케이션 요소를 모두 갖추고 있다."
+    },
+    {
+      "turn_index": 45,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "وبالرغم من ذلك، فإن منطقة شنغن تعمل إلى حد ما كدولة واحدة في هذا الشأن."
+    },
+    {
+      "turn_index": 46,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تتميز أعماله بجودة وتفاصيل مميزة لدرجة جعلته أحد \"الأسماء المعروفة\" القليلة للغاية بين هواة جمع الطوابع. تخصص البعض في جمع أعماله فقط."
+    },
+    {
+      "turn_index": 47,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "إذا لم تكن معتاداً على القيادة على الطرق الريفية، فكن حذراً: يوجد دائماً منحدرات حادة وممرات ضيقة ومنحنيات حادة."
+    },
+    {
+      "turn_index": 48,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تبحث هذه النظريات في الشيء الذي يجعل بعض الأشخاص يريدون الأشياء التي يفعلونها والأشياء في بيئتهم المحيطة التي تجعلهم يفعلون أو لا يفعلون أشياء معينة."
+    },
+    {
+      "turn_index": 49,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "오후 10 - 11시 MDT(산악 여름 시간) 사이에 수감자들이 교도소 마당에 화재를 시작했다."
+    },
+    {
+      "turn_index": 49,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "بين الساعة 10:00 إلى 11:00 مساءً بتوقيت الجبل، أُضرِمَ حريقٌ من قبل النزلاء في الفناء."
+    },
+    {
+      "turn_index": 50,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "كما احتفظ الحزب الحاكم، وهو المنظمة الشعبية لجنوب غرب أفريقيا (سوابو)، بالأغلبية في الانتخابات البرلمانية."
+    },
+    {
+      "turn_index": 52,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Children are placed in Foster Care for a wide variety of reasons that range from neglect, to abuse, and even to extortion."
+    },
+    {
+      "turn_index": 53,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "You may also wish to consult the advice of governments other than your own, but their advice is designed for their citizens."
+    },
+    {
+      "turn_index": 56,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تأتي 20٪ من المياه التي تصب من أنهار الكوكب في المحيطات من نهر الأمازون."
+    },
+    {
+      "turn_index": 57,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "وأضاف أنه \"مع ذلك، لا ينبغي أن يُجبروا على تحمل التزامات تتجاوز مرحلة نموهم، ومسؤوليتهم وقدراتهم.\""
+    },
+    {
+      "turn_index": 57,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "He added that \"they should not, however, be asked to take on obligations that go beyond their development stage, responsibility and capabilities.\""
+    },
+    {
+      "turn_index": 58,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "좀 더 작은 섬의 대부분은 독립 국가이거나 프랑스와 관련이 있고, 호화로운 비치 리조트로 알려져 있다."
+    },
+    {
+      "turn_index": 59,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "마르텔리는 어제 9명으로 이뤄진 임시 선거위원회(CEP) 취임을 위한 선서를 했습니다."
+    },
+    {
+      "turn_index": 60,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "이것은 몇몇 동사와 사물을 구별하는 중요한 방법이다."
+    },
+    {
+      "turn_index": 61,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "폭탄 한 발이 총독 집무실 밖에서 폭발했다."
+    },
+    {
+      "turn_index": 61,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "انفجرت قنبلة واحدة خارج مكتب الحاكم العام."
+    },
+    {
+      "turn_index": 62,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "파리 사람들은 자기중심적이고, 무례하고, 오만하다는 평판이 있습니다."
+    },
+    {
+      "turn_index": 63,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "بعد بناء السد عام 1963، توقفت الفيضانات الموسمية التي من شأنها أن تنشر الرواسب في جميع أنحاء النهر."
+    },
+    {
+      "turn_index": 64,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "악천후는 피해, 심각한 사회 혼란 또는 인명 손실을 초래할 수 있는 위험한 기상 현상의 총칭이다."
+    },
+    {
+      "turn_index": 65,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "그것은 기차와 자동차 및 여러 교통수단을 가져다주었습니다."
+    },
+    {
+      "turn_index": 65,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "لقد جلب لنا القطار، والسيارة، والعديد من أجهزة النقل الأخرى."
+    },
+    {
+      "turn_index": 66,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "He was also engaged in engraving banknotes for many countries, recent examples of his work including the Prime Ministerial portraits on the front of the new Canadian $5 and $100 bills."
+    },
+    {
+      "turn_index": 68,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "كانت السلطة المركزية للكنيسة في روما لأكثر من ألف عام، وقد أدى هذا التركيز للسلطة والمال إلى تساؤل الكثيرين عن مدى الوفاء بمتطلبات العقيدة."
+    },
+    {
+      "turn_index": 69,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "However, that is not true. Although there is something written on the back of the document, it is not a treasure map."
+    },
+    {
+      "turn_index": 70,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "군대가 들어오기 전에, 아이티는 1800년 이래로 질병과 관련된 문제에 처한 적이 없습니다."
+    },
+    {
+      "turn_index": 70,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "قبل وصول القوات، لم تواجه هايتي مشاكل متعلقة بالمرض منذ القرن التاسع عشر."
+    },
+    {
+      "turn_index": 71,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "찬드라 셰카르 솔랑키 경찰서장은 피고인이 얼굴을 가린 채 법정에 나왔다고 말했다."
+    },
+    {
+      "turn_index": 72,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Duvall, who is married with two adult children, did not leave a big impression on Miller, to whom the story was related."
+    },
+    {
+      "turn_index": 73,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "고통을 극복하는 데 필요한 약들이 경기에서는 금지된 약물이기에 복용을 할 수 없었다."
+    },
+    {
+      "turn_index": 73,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "لم يستطع تناول الأدوية اللازمة للتغلّب على الألم إذ أن استخدامها ممنوع في الألعاب."
+    },
+    {
+      "turn_index": 74,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "모사사우루스는 그 시대의 최상위 포식자였으므로 다른 모사사우루스 외에는 두려울 것이 아무것도 없었습니다."
+    },
+    {
+      "turn_index": 75,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "모든 남아프리카 국립공원과 마찬가지로, 공원에는 매일 보존료와 입장료가 있습니다."
+    },
+    {
+      "turn_index": 76,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "이 다리는 브라질 세관 검문소의 시공이 완료되는 2017년 9월에 전면 가동될 예정이다."
+    },
+    {
+      "turn_index": 78,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "كانت اللجنة بمنزلة رد مارتيلي على الاحتجاجات واسعة النطاق المناهضة للنظام التي بدأت في تشرين الأول."
+    },
+    {
+      "turn_index": 79,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "스프링복스의 경우, 다섯 경기 연패를 기록했다."
+    },
+    {
+      "turn_index": 79,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "For the Springboks, it ended a five-match losing streak."
+    },
+    {
+      "turn_index": 80,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "마다가스카르는 야생 동물에 관해서는 현재 가장 크고 독보적인 대륙이다."
+    },
+    {
+      "turn_index": 80,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "جزيرة إن مدغشقر هي الأكبر على الإطلاق، وهي قارةٌ مستقلةٌ عندما يتعلّق الأمر بالحياةِ البريةِ."
+    },
+    {
+      "turn_index": 81,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "كما أنه من بعد الثورة، كانت المهن مفتوحةً لجميع المتقدّمين الذكور ممّا سمح للأكثر طموحاً ونجاحاً بالنجاح."
+    },
+    {
+      "turn_index": 81,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Also after the Revolution occupations were open to all male applicants allowing the most ambitious and successful to succeed."
+    },
+    {
+      "turn_index": 82,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "أُرسل القمر الصناعي إلى الفضاء بواسطة صاروخ. يستخدم العلماء التلسكوبات في الفضاء لأن الغلاف الجوي لكوكب الأرض يشوه بعض الضوء والرؤية."
+    },
+    {
+      "turn_index": 84,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "가장 쉽게 접근할 수 있는 식물성 자원은 잎이나 콩과 식물의 단백질이지만, 이들은 조리를 하지 않으면 우리와 같은 영장류가 소화하기 어렵습니다."
+    },
+    {
+      "turn_index": 84,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "وكانت الموارد النباتية التي يسهل الوصول إليها بكثرة هي البروتينات التي يمكن الحصول عليها من الأوراق والبقول، ولكن هذه البروتينات يصعب على الرئيسيات مثلنا هضمها ما لم يتم طهيها ."
+    },
+    {
+      "turn_index": 85,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تمّكن العلماء من استنتاج أن المادة الداكنة تؤثر على المادة الداكنة الأخرى بنفس الطريقة التي تؤثر بها المادة الطبيعية."
+    },
+    {
+      "turn_index": 85,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "The scientists were able to conclude that the dark matter affect other dark matter in the same way regular matter does."
+    },
+    {
+      "turn_index": 87,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "카사블랑카는 모로코에서 가장 흥미롭지 않은 쇼핑 장소 중 한 곳입니다."
+    },
+    {
+      "turn_index": 87,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تعد الدار البيضاء من الأماكن الأقل إثارة للتسوق في كل أنحاء المغرب."
+    },
+    {
+      "turn_index": 88,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Be careful not to allow fabric to become too hot (which can cause shrinkage, or in extreme cases, scorch)."
+    },
+    {
+      "turn_index": 89,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "사자는 무리 지어 사는 가장 사회적인 고양이과 동물입니다."
+    },
+    {
+      "turn_index": 89,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "الأسود هي أكثر القطط اجتماعية وتعيش في مجموعات كبيرة تدعى قطعاناً."
+    },
+    {
+      "turn_index": 90,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "بينما انحدرت المعرفة لدى اليونانيين، وجد الغرب نفسه معزولاً عن جذوره الفلسفية والعلمية اليونانية."
+    },
+    {
+      "turn_index": 90,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "As knowledge of Greek declined, the West found itself cut off from its Greek philosophical and scientific roots."
+    },
+    {
+      "turn_index": 92,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "크러스트는 마리아 아래에서 더 얇고 고원 아래에서 더 두껍습니다."
+    },
+    {
+      "turn_index": 92,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "إنه أنحف تحت ماريا وأكثر سمكاً تحت المرتفعات."
+    },
+    {
+      "turn_index": 93,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Its renown for being an epicenter of luxury began in about 400 A.D. and lasted up until about 1100 A.D."
+    },
+    {
+      "turn_index": 97,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "어린이와 노약자를 포함한 6명의 인질들은 필리핀 사진작가들과 마찬가지로 일찍 풀려났다."
+    },
+    {
+      "turn_index": 97,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Six hostages, including the children and elderly, were released early, as were the Filipino photographers."
+    }
+  ]
+}
