@@ -1,0 +1,407 @@
+{
+  "run": {
+    "wall_time": "2026-09-06T17:43:26.481708+00:00",
+    "model_path": "/home/skkai/STiTy/models/Qwen3-ASR-1.7B-en-silence-c80-merged",
+    "host": "localhost",
+    "port": 8765,
+    "manifest": "conversations/ar_ko_en_clean.jsonl",
+    "n_turns_requested": 0,
+    "n_turns_run": 100,
+    "src_lang": "auto",
+    "target_lang": "en",
+    "chunk_ms": 200,
+    "drain_grace_sec": 5.0
+  },
+  "outcome": {
+    "ok": 100,
+    "empty": 0,
+    "errors": 0,
+    "total": 100
+  },
+  "timing": {
+    "time_to_first_final_sec": {
+      "mean": 34.033,
+      "p50": 32.671,
+      "p90": 46.403,
+      "max": 63.335,
+      "n": 100
+    },
+    "time_to_last_final_sec": {
+      "mean": 34.0717,
+      "p50": 32.7095,
+      "p90": 46.403,
+      "max": 63.335,
+      "n": 100
+    },
+    "realtime_factor": {
+      "mean": 1.1591,
+      "p50": 1.155,
+      "p90": 1.22,
+      "max": 1.26,
+      "n": 100
+    }
+  },
+  "reliability": {
+    "language_detection_accuracy": 0.9264,
+    "segments_total": 300,
+    "segments_dropped": 11,
+    "segments_dropped_rate": 0.0367,
+    "unmatched_finals": 39,
+    "commit_reasons": {
+      "seg": 530
+    }
+  },
+  "accuracy_by_language": {
+    "ar": {
+      "segments_total": 100,
+      "segments_dropped": 1,
+      "segments_dropped_rate": 0.01,
+      "wer": {
+        "mean": 0.2533,
+        "p50": 0.2333,
+        "p90": 0.4444,
+        "max": 0.6667,
+        "n": 99
+      },
+      "cer": {
+        "mean": 0.084,
+        "p50": 0.0625,
+        "p90": 0.1707,
+        "max": 0.4755,
+        "n": 99
+      },
+      "bleu": {
+        "mean": 32.4386,
+        "p50": 32.2627,
+        "p90": 54.6024,
+        "max": 82.4237,
+        "n": 99
+      },
+      "chrf": {
+        "mean": 61.5591,
+        "p50": 62.7987,
+        "p90": 76.2498,
+        "max": 88.3288,
+        "n": 99
+      }
+    },
+    "en": {
+      "segments_total": 100,
+      "segments_dropped": 3,
+      "segments_dropped_rate": 0.03,
+      "wer": {
+        "mean": 0.4568,
+        "p50": 0.2174,
+        "p90": 1.0,
+        "max": 3.4706,
+        "n": 97
+      },
+      "cer": {
+        "mean": 0.3689,
+        "p50": 0.1447,
+        "p90": 0.9091,
+        "max": 3.2336,
+        "n": 97
+      },
+      "bleu": {
+        "mean": 54.6078,
+        "p50": 68.9313,
+        "p90": 90.8655,
+        "max": 100.0,
+        "n": 97
+      },
+      "chrf": {
+        "mean": 69.7155,
+        "p50": 84.5831,
+        "p90": 97.2905,
+        "max": 100.0,
+        "n": 97
+      }
+    },
+    "ko": {
+      "segments_total": 100,
+      "segments_dropped": 7,
+      "segments_dropped_rate": 0.07,
+      "wer": {
+        "mean": 0.251,
+        "p50": 0.1818,
+        "p90": 0.5455,
+        "max": 1.0,
+        "n": 93
+      },
+      "cer": {
+        "mean": 0.1512,
+        "p50": 0.0625,
+        "p90": 0.4894,
+        "max": 0.8372,
+        "n": 93
+      },
+      "bleu": {
+        "mean": 24.638,
+        "p50": 22.0642,
+        "p90": 45.097,
+        "max": 79.6567,
+        "n": 93
+      },
+      "chrf": {
+        "mean": 53.9653,
+        "p50": 55.5175,
+        "p90": 71.2782,
+        "max": 83.688,
+        "n": 93
+      }
+    }
+  },
+  "accuracy_by_cut": {
+    "cut": {
+      "n": 0,
+      "wer": null,
+      "cer": null,
+      "bleu": null,
+      "chrf": null
+    },
+    "uncut": {
+      "n": 289,
+      "wer": {
+        "mean": 0.3209,
+        "p50": 0.2143,
+        "p90": 0.75,
+        "max": 3.4706,
+        "n": 289
+      },
+      "cer": {
+        "mean": 0.2013,
+        "p50": 0.0702,
+        "p90": 0.6596,
+        "max": 3.2336,
+        "n": 289
+      },
+      "bleu": {
+        "mean": 37.3692,
+        "p50": 32.6018,
+        "p90": 79.8863,
+        "max": 100.0,
+        "n": 289
+      },
+      "chrf": {
+        "mean": 61.853,
+        "p50": 62.7987,
+        "p90": 91.9998,
+        "max": 100.0,
+        "n": 289
+      }
+    }
+  },
+  "accuracy_penalized_for_drops": {
+    "wer": {
+      "mean": 0.3458,
+      "p50": 0.2222,
+      "p90": 0.9375,
+      "max": 3.4706,
+      "n": 300
+    },
+    "cer": {
+      "mean": 0.2305,
+      "p50": 0.0778,
+      "p90": 0.7966,
+      "max": 3.2336,
+      "n": 300
+    },
+    "bleu": {
+      "mean": 35.999,
+      "p50": 32.2204,
+      "p90": 79.8331,
+      "max": 100.0,
+      "n": 300
+    },
+    "chrf": {
+      "mean": 59.5851,
+      "p50": 62.1561,
+      "p90": 91.4846,
+      "max": 100.0,
+      "n": 300
+    }
+  },
+  "commit_lag_by_reason": {
+    "seg": {
+      "mean": 11.0781,
+      "p50": 9.182,
+      "p90": 27.421,
+      "max": 40.415,
+      "n": 289
+    }
+  },
+  "commit_lag_by_language": {
+    "ar": {
+      "mean": 23.3459,
+      "p50": 22.975,
+      "p90": 31.617,
+      "max": 40.415,
+      "n": 99
+    },
+    "en": {
+      "mean": 0.0321,
+      "p50": 0.002,
+      "p90": 0.084,
+      "max": 0.102,
+      "n": 97
+    },
+    "ko": {
+      "mean": 9.5399,
+      "p50": 9.176,
+      "p90": 13.018,
+      "max": 17.231,
+      "n": 93
+    }
+  },
+  "worst_segments": [
+    {
+      "turn_index": 27,
+      "lang": "en",
+      "cut": false,
+      "wer": 3.4705882352941178,
+      "expected_text": "The U.S. Corps of Engineers estimated that 6 inches of rainfall could breach the previously damaged levees.",
+      "original": "U.S. Air Force is the largest of the three branches of the U.S. Armed Forces. The U.S. Air Force is responsible for the development, production, and maintenance of aircraft, missiles, and other aerial weapons. The U.S. Air Force also provides air transportation services for the U.S. Army, U.S. Navy, and U.S. Marine Corps. The U.S. Corps of Engineers estimated that six inches of rain fall could breach the previous"
+    },
+    {
+      "turn_index": 85,
+      "lang": "en",
+      "cut": false,
+      "wer": 1.9375,
+      "expected_text": "A curry is a dish based on herbs and spices, together with either meat or vegetables.",
+      "original": "Curry is a spice made from the dried leaves of the curry plant, a member of the ginger family. It is used to flavour a wide range of dishes, from curries to curried vegetables."
+    },
+    {
+      "turn_index": 84,
+      "lang": "en",
+      "cut": false,
+      "wer": 1.9333333333333333,
+      "expected_text": "People now write messages on computer screens, never having to come close to a sharpener.",
+      "original": "Now people are using computer screens to write messages and are not required to bring pencils and paper. There is none at all. People now write messages on computer screens never having to"
+    },
+    {
+      "turn_index": 16,
+      "lang": "en",
+      "cut": false,
+      "wer": 1.9230769230769231,
+      "expected_text": "Martelly swore in a new Provisional Electoral Council (CEP) of nine members yesterday.",
+      "original": "Marteri is the chairman of the temporary committee of the CEP to be formed yesterday. He made a confession. Martelli swore in a new provisional electoral council of nine members yesterday"
+    },
+    {
+      "turn_index": 19,
+      "lang": "en",
+      "cut": false,
+      "wer": 1.4166666666666667,
+      "expected_text": "Beyond Wednesday's event, Carpanedo competed in two individual races at the Championships.",
+      "original": "Carpentier also competed in two individual races at the championship, besides the event on Saturday. Beyond Wednesday's event, Carponedo competed in two individual races at the championships."
+    },
+    {
+      "turn_index": 34,
+      "lang": "en",
+      "cut": false,
+      "wer": 1.0909090909090908,
+      "expected_text": "It is thinner under the maria and thicker under the highlands.",
+      "original": "Crust is thinner under the Maria and thicker under the Cerradus. It is thinner under the Maria and thicker under the highlands."
+    },
+    {
+      "turn_index": 2,
+      "lang": "en",
+      "cut": false,
+      "wer": 1.0,
+      "expected_text": "Their disciplined defence, ball handling skills and excellent team work made them stand out and it was clear that this was the team to beat.",
+      "original": "To be able to defeat them."
+    },
+    {
+      "turn_index": 5,
+      "lang": "en",
+      "cut": false,
+      "wer": 1.0,
+      "expected_text": "One bomb exploded outside the governor general's office.",
+      "original": "I am."
+    },
+    {
+      "turn_index": 10,
+      "lang": "en",
+      "cut": false,
+      "wer": 1.0,
+      "expected_text": "A simple popular dinner, especially during the summer, is the Pa amb Oli: Bread with olive oil, tomato, and any available condiments such as cheese, tunafish, etc.",
+      "original": "Simple, yet distinctive."
+    },
+    {
+      "turn_index": 13,
+      "lang": "en",
+      "cut": false,
+      "wer": 1.0,
+      "expected_text": "Only mutations in germ-line cells can be passed on to children, while mutations elsewhere can cause cell-death or cancer.",
+      "original": "Influenza virus causes cell death,"
+    }
+  ],
+  "dropped_segments": [
+    {
+      "turn_index": 0,
+      "lang": "en",
+      "cut": false,
+      "expected_text": "Ancient cultures and tribes began to keep them for easy access to milk, hair, meat, and skins."
+    },
+    {
+      "turn_index": 16,
+      "lang": "ko",
+      "cut": false,
+      "expected_text": "마르텔리는 어제 9명으로 이뤄진 임시 선거위원회(CEP) 취임을 위한 선서를 했습니다."
+    },
+    {
+      "turn_index": 19,
+      "lang": "ko",
+      "cut": false,
+      "expected_text": "카파네도(Carpanedo)는 수요일의 이벤트 말고도, 챔피언십에서 두 번의 개별 레이스에 출전했습니다."
+    },
+    {
+      "turn_index": 23,
+      "lang": "ko",
+      "cut": false,
+      "expected_text": "카사블랑카는 모로코에서 가장 흥미롭지 않은 쇼핑 장소 중 한 곳입니다."
+    },
+    {
+      "turn_index": 27,
+      "lang": "ko",
+      "cut": false,
+      "expected_text": "미국 공병대는 시간당 6인치의 강우량이 기 파손된 제방을 무너뜨릴 수 있다고 추정했다."
+    },
+    {
+      "turn_index": 34,
+      "lang": "ko",
+      "cut": false,
+      "expected_text": "크러스트는 마리아 아래에서 더 얇고 고원 아래에서 더 두껍습니다."
+    },
+    {
+      "turn_index": 58,
+      "lang": "ko",
+      "cut": false,
+      "expected_text": "핫 초콜릿은 벨기에 표준에 따릅니다. 과일 주스는 비싸지만 아주 맛있습니다."
+    },
+    {
+      "turn_index": 65,
+      "lang": "en",
+      "cut": false,
+      "expected_text": "The cabbage juice changes color depending on how acidic or basic (alkaline) the chemical is."
+    },
+    {
+      "turn_index": 70,
+      "lang": "en",
+      "cut": false,
+      "expected_text": "Liberal criticism of the reconstruction effort has focused on the awarding of reconstruction contracts to perceived Washington insiders."
+    },
+    {
+      "turn_index": 84,
+      "lang": "ko",
+      "cut": false,
+      "expected_text": "이제 사람들은 컴퓨터 화면에 메시지를 쓰고 연필깎기를 가까이할 필요가 전혀 없습니다."
+    },
+    {
+      "turn_index": 90,
+      "lang": "ar",
+      "cut": false,
+      "expected_text": "أوروبا قارة صغيرة نسبياً ولكن فيها العديد من الدول المستقلة. وفي ظل الظروف العادية، فإن السفر عبر عدة بلدان يعني اضطرارك إلى المرور عبر طلبات الحصول على التأشيرة ومراقبة جوازات السفر عدة مرات."
+    }
+  ]
+}
