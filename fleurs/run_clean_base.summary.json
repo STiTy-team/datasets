@@ -1,0 +1,359 @@
+{
+  "run": {
+    "wall_time": "2026-09-06T15:29:06.775102+00:00",
+    "model_path": "Qwen/Qwen3-ASR-1.7B",
+    "host": "localhost",
+    "port": 8765,
+    "manifest": "conversations/ar_ko_en_clean.jsonl",
+    "n_turns_requested": 0,
+    "n_turns_run": 100,
+    "src_lang": "auto",
+    "target_lang": "en",
+    "chunk_ms": 200,
+    "drain_grace_sec": 5.0
+  },
+  "outcome": {
+    "ok": 100,
+    "empty": 0,
+    "errors": 0,
+    "total": 100
+  },
+  "timing": {
+    "time_to_first_final_sec": {
+      "mean": 34.0329,
+      "p50": 32.671,
+      "p90": 46.403,
+      "max": 63.335,
+      "n": 100
+    },
+    "time_to_last_final_sec": {
+      "mean": 34.1306,
+      "p50": 32.779,
+      "p90": 46.481,
+      "max": 63.486,
+      "n": 100
+    },
+    "realtime_factor": {
+      "mean": 1.1609,
+      "p50": 1.16,
+      "p90": 1.22,
+      "max": 1.26,
+      "n": 100
+    }
+  },
+  "reliability": {
+    "language_detection_accuracy": 0.9888,
+    "segments_total": 300,
+    "segments_dropped": 3,
+    "segments_dropped_rate": 0.01,
+    "unmatched_finals": 4,
+    "commit_reasons": {
+      "dot": 357
+    }
+  },
+  "accuracy_by_language": {
+    "ar": {
+      "segments_total": 100,
+      "segments_dropped": 1,
+      "segments_dropped_rate": 0.01,
+      "wer": {
+        "mean": 0.2053,
+        "p50": 0.1364,
+        "p90": 0.4,
+        "max": 3.0,
+        "n": 99
+      },
+      "cer": {
+        "mean": 0.0767,
+        "p50": 0.0339,
+        "p90": 0.0918,
+        "max": 2.8358,
+        "n": 99
+      },
+      "bleu": {
+        "mean": 38.1301,
+        "p50": 38.2064,
+        "p90": 62.682,
+        "max": 82.4237,
+        "n": 99
+      },
+      "chrf": {
+        "mean": 65.3004,
+        "p50": 65.8369,
+        "p90": 81.3495,
+        "max": 88.3288,
+        "n": 99
+      }
+    },
+    "en": {
+      "segments_total": 100,
+      "segments_dropped": 0,
+      "segments_dropped_rate": 0.0,
+      "wer": {
+        "mean": 0.1746,
+        "p50": 0.1292,
+        "p90": 0.4286,
+        "max": 0.9655,
+        "n": 100
+      },
+      "cer": {
+        "mean": 0.1001,
+        "p50": 0.0392,
+        "p90": 0.2857,
+        "max": 0.8673,
+        "n": 100
+      },
+      "bleu": {
+        "mean": 74.28,
+        "p50": 78.4364,
+        "p90": 100.0,
+        "max": 100.0,
+        "n": 100
+      },
+      "chrf": {
+        "mean": 87.3359,
+        "p50": 91.9274,
+        "p90": 100.0,
+        "max": 100.0,
+        "n": 100
+      }
+    },
+    "ko": {
+      "segments_total": 100,
+      "segments_dropped": 2,
+      "segments_dropped_rate": 0.02,
+      "wer": {
+        "mean": 0.1917,
+        "p50": 0.1429,
+        "p90": 0.5455,
+        "max": 1.0,
+        "n": 98
+      },
+      "cer": {
+        "mean": 0.1043,
+        "p50": 0.0333,
+        "p90": 0.2581,
+        "max": 0.9556,
+        "n": 98
+      },
+      "bleu": {
+        "mean": 27.2061,
+        "p50": 25.1144,
+        "p90": 51.2959,
+        "max": 79.6567,
+        "n": 98
+      },
+      "chrf": {
+        "mean": 56.4318,
+        "p50": 55.1891,
+        "p90": 76.775,
+        "max": 90.5248,
+        "n": 98
+      }
+    }
+  },
+  "accuracy_by_cut": {
+    "cut": {
+      "n": 0,
+      "wer": null,
+      "cer": null,
+      "bleu": null,
+      "chrf": null
+    },
+    "uncut": {
+      "n": 297,
+      "wer": {
+        "mean": 0.1905,
+        "p50": 0.1364,
+        "p90": 0.4286,
+        "max": 3.0,
+        "n": 297
+      },
+      "cer": {
+        "mean": 0.0937,
+        "p50": 0.0341,
+        "p90": 0.2206,
+        "max": 2.8358,
+        "n": 297
+      },
+      "bleu": {
+        "mean": 46.6973,
+        "p50": 43.3321,
+        "p90": 87.9813,
+        "max": 100.0,
+        "n": 297
+      },
+      "chrf": {
+        "mean": 69.7934,
+        "p50": 70.017,
+        "p90": 96.3805,
+        "max": 100.0,
+        "n": 297
+      }
+    }
+  },
+  "accuracy_penalized_for_drops": {
+    "wer": {
+      "mean": 0.1986,
+      "p50": 0.1379,
+      "p90": 0.4444,
+      "max": 3.0,
+      "n": 300
+    },
+    "cer": {
+      "mean": 0.1028,
+      "p50": 0.0345,
+      "p90": 0.2581,
+      "max": 2.8358,
+      "n": 300
+    },
+    "bleu": {
+      "mean": 46.2303,
+      "p50": 42.7233,
+      "p90": 87.9813,
+      "max": 100.0,
+      "n": 300
+    },
+    "chrf": {
+      "mean": 69.0955,
+      "p50": 69.6911,
+      "p90": 96.3805,
+      "max": 100.0,
+      "n": 300
+    }
+  },
+  "commit_lag_by_reason": {
+    "dot": {
+      "mean": 10.9184,
+      "p50": 9.05,
+      "p90": 26.652,
+      "max": 40.415,
+      "n": 297
+    }
+  },
+  "commit_lag_by_language": {
+    "ar": {
+      "mean": 23.3457,
+      "p50": 22.975,
+      "p90": 31.617,
+      "max": 40.415,
+      "n": 99
+    },
+    "en": {
+      "mean": 0.0974,
+      "p50": 0.086,
+      "p90": 0.165,
+      "max": 0.278,
+      "n": 100
+    },
+    "ko": {
+      "mean": 9.4062,
+      "p50": 9.0565,
+      "p90": 12.906,
+      "max": 17.231,
+      "n": 98
+    }
+  },
+  "worst_segments": [
+    {
+      "turn_index": 23,
+      "lang": "ar",
+      "cut": false,
+      "wer": 3.0,
+      "expected_text": "تعد الدار البيضاء من الأماكن الأقل إثارة للتسوق في كل أنحاء المغرب.",
+      "original": "تعد الضوايل البيضاء من الأماكن الأقل إشارة للتصوق في كل أنحاء المغرب. تعد الضوء البيضاء من الأماكن الأقل إشارة للتصوق في كل أنحاء المغرب. تعد الضال البيضاء من الأماكن الأقل إشارة للتصوق في كل أنحاء المغرب. كاسا بلانكا هي أحد أكثر الأماكن سياحية في المغرب."
+    },
+    {
+      "turn_index": 42,
+      "lang": "ko",
+      "cut": false,
+      "wer": 1.0,
+      "expected_text": "\"레이튼(Layton)은 총리와의 면담에서 보수당의 환경 법안을 \"\"철저히, 완전하게 재작성\"\" 할 것을 요청하며, 보수당의 환경 법안에 대한 변경을 촉구했다.\"",
+      "original": "레이튼."
+    },
+    {
+      "turn_index": 42,
+      "lang": "en",
+      "cut": false,
+      "wer": 0.9655172413793104,
+      "expected_text": "Layton had asked for changes to the conservatives' environmental bill during the meeting with the PM, asking for a \"thorough and complete rewriting\" of the Conservative party's environmental bill.",
+      "original": "Leighton. is the Prime Minister."
+    },
+    {
+      "turn_index": 75,
+      "lang": "en",
+      "cut": false,
+      "wer": 0.7894736842105263,
+      "expected_text": "After the dam was built in 1963, the seasonal floods that would spread sediment throughout the river were halted.",
+      "original": "Floods that would spread sediment throughout."
+    },
+    {
+      "turn_index": 80,
+      "lang": "ko",
+      "cut": false,
+      "wer": 0.7857142857142857,
+      "expected_text": "하지만, 솅겐 존(국경 자유 통행 지역: Schengen zone)은 이런 측면에서 다소 한 나라같이 작용한다.",
+      "original": "하지만 샹겐 존은 이런 측면에서 다수 한 나라 같이 작용한다."
+    },
+    {
+      "turn_index": 25,
+      "lang": "ko",
+      "cut": false,
+      "wer": 0.7692307692307693,
+      "expected_text": "오후 10 - 11시 MDT(산악 여름 시간) 사이에 수감자들이 교도소 마당에 화재를 시작했다.",
+      "original": "수감자들이 교도소 마당의 화대를 시작했다."
+    },
+    {
+      "turn_index": 25,
+      "lang": "en",
+      "cut": false,
+      "wer": 0.7142857142857143,
+      "expected_text": "Between 10:00-11:00 pm MDT, a fire was started by the inmates in the yard.",
+      "original": "10 to 11 p.m. Mountain time. A fire was started by the inmates and the."
+    },
+    {
+      "turn_index": 97,
+      "lang": "ko",
+      "cut": false,
+      "wer": 0.6923076923076923,
+      "expected_text": "그래도 관계자의 조언을 듣고 모든 표지판을 지키고, 안전 경고에 세심한 주의를 기울여야 합니다.",
+      "original": "세심한 주의를 기울여야 합니다."
+    },
+    {
+      "turn_index": 43,
+      "lang": "ko",
+      "cut": false,
+      "wer": 0.6666666666666666,
+      "expected_text": "달이 지구에 당기는 힘을 발휘하여 조수를 일으키듯이, 은하수도 궁수자리 은하계에 힘을 발휘한다.",
+      "original": "조수를 일으키듯이 은하수도 궁수 자리 은하계에 힘을 발휘한다."
+    },
+    {
+      "turn_index": 92,
+      "lang": "en",
+      "cut": false,
+      "wer": 0.6666666666666666,
+      "expected_text": "Hydrogen ions are protons that had their electrons stripped off them (since Hydrogen atoms consist of one proton and one electron).",
+      "original": "Had their electrons stripped off them, since hydrogen atoms consist of one."
+    }
+  ],
+  "dropped_segments": [
+    {
+      "turn_index": 23,
+      "lang": "ko",
+      "cut": false,
+      "expected_text": "카사블랑카는 모로코에서 가장 흥미롭지 않은 쇼핑 장소 중 한 곳입니다."
+    },
+    {
+      "turn_index": 74,
+      "lang": "ko",
+      "cut": false,
+      "expected_text": "지구가 마치 움직이지 않는 것처럼 느껴지기에 언뜻 보면 맞는 말 같기도 하죠?"
+    },
+    {
+      "turn_index": 90,
+      "lang": "ar",
+      "cut": false,
+      "expected_text": "أوروبا قارة صغيرة نسبياً ولكن فيها العديد من الدول المستقلة. وفي ظل الظروف العادية، فإن السفر عبر عدة بلدان يعني اضطرارك إلى المرور عبر طلبات الحصول على التأشيرة ومراقبة جوازات السفر عدة مرات."
+    }
+  ]
+}
