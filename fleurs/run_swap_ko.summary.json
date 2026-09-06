@@ -1,0 +1,583 @@
+{
+  "run": {
+    "wall_time": "2026-09-06T19:17:10.368039+00:00",
+    "model_path": "/home/skkai/STiTy/models/Qwen3-ASR-1.7B-ko-silence-v4c900-merged",
+    "host": "localhost",
+    "port": 8765,
+    "manifest": "conversations/ko_ar_en_test.jsonl",
+    "n_turns_requested": 0,
+    "n_turns_run": 100,
+    "src_lang": "auto",
+    "target_lang": "en",
+    "chunk_ms": 200,
+    "drain_grace_sec": 5.0
+  },
+  "outcome": {
+    "ok": 100,
+    "empty": 0,
+    "errors": 0,
+    "total": 100
+  },
+  "timing": {
+    "time_to_first_final_sec": {
+      "mean": 21.4114,
+      "p50": 20.321,
+      "p90": 28.457,
+      "max": 47.322,
+      "n": 100
+    },
+    "time_to_last_final_sec": {
+      "mean": 21.5585,
+      "p50": 20.5445,
+      "p90": 28.541,
+      "max": 47.322,
+      "n": 100
+    },
+    "realtime_factor": {
+      "mean": 1.2688,
+      "p50": 1.26,
+      "p90": 1.36,
+      "max": 1.53,
+      "n": 100
+    }
+  },
+  "reliability": {
+    "language_detection_accuracy": 0.9794,
+    "segments_total": 300,
+    "segments_dropped": 39,
+    "segments_dropped_rate": 0.13,
+    "unmatched_finals": 9,
+    "commit_reasons": {
+      "seg": 436,
+      "vad": 1
+    }
+  },
+  "accuracy_by_language": {
+    "ar": {
+      "segments_total": 100,
+      "segments_dropped": 17,
+      "segments_dropped_rate": 0.17,
+      "wer": {
+        "mean": 0.5227,
+        "p50": 0.5,
+        "p90": 0.8,
+        "max": 1.0,
+        "n": 83
+      },
+      "cer": {
+        "mean": 0.4183,
+        "p50": 0.4062,
+        "p90": 0.7059,
+        "max": 0.7634,
+        "n": 83
+      },
+      "bleu": {
+        "mean": 19.5529,
+        "p50": 13.9453,
+        "p90": 45.457,
+        "max": 74.1945,
+        "n": 83
+      },
+      "chrf": {
+        "mean": 42.9264,
+        "p50": 39.8702,
+        "p90": 66.5224,
+        "max": 89.684,
+        "n": 83
+      }
+    },
+    "en": {
+      "segments_total": 100,
+      "segments_dropped": 19,
+      "segments_dropped_rate": 0.19,
+      "wer": {
+        "mean": 0.5515,
+        "p50": 0.5455,
+        "p90": 0.8333,
+        "max": 0.9412,
+        "n": 81
+      },
+      "cer": {
+        "mean": 0.5099,
+        "p50": 0.5,
+        "p90": 0.8108,
+        "max": 0.8583,
+        "n": 81
+      },
+      "bleu": {
+        "mean": 30.2038,
+        "p50": 26.6564,
+        "p90": 62.1145,
+        "max": 79.6941,
+        "n": 81
+      },
+      "chrf": {
+        "mean": 49.5564,
+        "p50": 55.1087,
+        "p90": 75.7474,
+        "max": 95.7648,
+        "n": 81
+      }
+    },
+    "ko": {
+      "segments_total": 100,
+      "segments_dropped": 3,
+      "segments_dropped_rate": 0.03,
+      "wer": {
+        "mean": 0.6022,
+        "p50": 0.6087,
+        "p90": 0.9231,
+        "max": 2.5,
+        "n": 97
+      },
+      "cer": {
+        "mean": 0.4966,
+        "p50": 0.4915,
+        "p90": 0.7973,
+        "max": 1.9167,
+        "n": 97
+      },
+      "bleu": {
+        "mean": 13.0399,
+        "p50": 8.7083,
+        "p90": 29.7399,
+        "max": 58.6741,
+        "n": 97
+      },
+      "chrf": {
+        "mean": 38.1486,
+        "p50": 38.0487,
+        "p90": 61.0949,
+        "max": 80.4245,
+        "n": 97
+      }
+    }
+  },
+  "accuracy_by_cut": {
+    "cut": {
+      "n": 261,
+      "wer": {
+        "mean": 0.5612,
+        "p50": 0.55,
+        "p90": 0.8571,
+        "max": 2.5,
+        "n": 261
+      },
+      "cer": {
+        "mean": 0.4758,
+        "p50": 0.4561,
+        "p90": 0.7634,
+        "max": 1.9167,
+        "n": 261
+      },
+      "bleu": {
+        "mean": 20.4378,
+        "p50": 13.7546,
+        "p90": 50.2659,
+        "max": 79.6941,
+        "n": 261
+      },
+      "chrf": {
+        "mean": 43.2083,
+        "p50": 42.2325,
+        "p90": 68.3849,
+        "max": 95.7648,
+        "n": 261
+      }
+    },
+    "uncut": {
+      "n": 0,
+      "wer": null,
+      "cer": null,
+      "bleu": null,
+      "chrf": null
+    }
+  },
+  "accuracy_penalized_for_drops": {
+    "wer": {
+      "mean": 0.6182,
+      "p50": 0.6043,
+      "p90": 1.0,
+      "max": 2.5,
+      "n": 300
+    },
+    "cer": {
+      "mean": 0.544,
+      "p50": 0.515,
+      "p90": 1.0,
+      "max": 1.9167,
+      "n": 300
+    },
+    "bleu": {
+      "mean": 17.7809,
+      "p50": 10.6343,
+      "p90": 48.3225,
+      "max": 79.6941,
+      "n": 300
+    },
+    "chrf": {
+      "mean": 37.5913,
+      "p50": 38.2255,
+      "p90": 66.5224,
+      "max": 95.7648,
+      "n": 300
+    }
+  },
+  "commit_lag_by_reason": {
+    "seg": {
+      "mean": 7.495,
+      "p50": 6.91,
+      "p90": 16.144,
+      "max": 30.416,
+      "n": 261
+    },
+    "vad": {
+      "mean": 15.299,
+      "p50": 15.299,
+      "p90": 15.299,
+      "max": 15.299,
+      "n": 1
+    }
+  },
+  "commit_lag_by_language": {
+    "ar": {
+      "mean": 6.8016,
+      "p50": 6.524,
+      "p90": 9.912,
+      "max": 15.299,
+      "n": 83
+    },
+    "en": {
+      "mean": 0.0812,
+      "p50": 0.081,
+      "p90": 0.089,
+      "max": 0.288,
+      "n": 81
+    },
+    "ko": {
+      "mean": 14.2792,
+      "p50": 13.442,
+      "p90": 19.692,
+      "max": 30.416,
+      "n": 97
+    }
+  },
+  "worst_segments": [
+    {
+      "turn_index": 59,
+      "lang": "ko",
+      "cut": true,
+      "wer": 2.5,
+      "expected_text": "마르텔리는 어제 9명으로 이뤄진 임시 선거위원회(CEP) 취임을 위한 선서를 했습니다.",
+      "original": "마르텔리는 어제 9명으로 이루어진 임시선거 위원회에 마르텔리 어제 9명으로 이루어진 임시선거 위원회에 압도적 찬성으로 맡게 됐다. 마르텔리 압도적 찬성으로 맡게 됐다. 마르텔리 100% 찬성으로 맡게 됐다. 100% 찬성"
+    },
+    {
+      "turn_index": 56,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.8888888888888888,
+      "expected_text": "지구의 강에서 바다로 쏟아져 들어가는 물의 20%는 아마존에서 흘러나온다.",
+      "original": "지구의 강에서 바다로 쏟아져 들어가는 물의 20%는 아마존에서 흘러나온다. 20%의 물은 지구의 30%에 해당한다. 지구의 30%에 해당하는 물은 아마존에서 흘러나온다. 지구의 30%에 해당하는 물은 아마존에서 흘"
+    },
+    {
+      "turn_index": 36,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.6363636363636365,
+      "expected_text": "미국 체조 협회는 미국 올림픽 위원회의 서한을 지지하며, 미국의 전 운동선수가 안전한 환경을 가질 수 있도록 돕는 올림픽 관계자의 절대적 필요성을 인정합니다.",
+      "original": "미국 체조협회는 미국 올림픽 위원회에 서한을 지지하며 미국에 전 운동선수가 안전한 환경을 가질 수 있도록 돕는 올림픽 관계자에 절대적 떠다마 월레이테 멀티 테다 를 군바 씨 르 살 텔 캐 날 올 럴 케 엘 아메리케이아 워 타 큐블 알 러 우 스라 파게 투 메 데 데 데"
+    },
+    {
+      "turn_index": 53,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.2666666666666666,
+      "expected_text": "자신의 의견이 아닌 정부의 의견을 듣고 싶을 수도 있지만, 각국 정부의 조언들은 자국민에 맞춰져 있다.",
+      "original": "자신의 의견이 아닌 정부의 의견을 듣고 싶을 수도 있지만 각국 정부의 조언들은 자국민에 맞춰져 있 루 빠마 더 러브 아이단 피 탈 블 멀 마쇼로 맨 후 과 헤 루 프 그"
+    },
+    {
+      "turn_index": 16,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "구조물을 긁거나 낙서해서 현장을 더럽히지 마시오.",
+      "original": "내가 떠나고"
+    },
+    {
+      "turn_index": 25,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "플리트비체 호수 국립공원은 대게 너도밤나무, 가문비나무, 전나무, 그리고 알프스와 지중해성 식물로 울창하게 삼림이 우거져 있다.",
+      "original": "담래의 까시페는 해변에 부딪치면 물이 튀어나오고, 해변에 부딪치면 물이 튀어나오고, 해변"
+    },
+    {
+      "turn_index": 27,
+      "lang": "ar",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "وعلى غرار ذلك، يُطلب من الرجال ارتداء سراويل تغطي الركبتين",
+      "original": "على نفس الخط وعلى نفس الخط"
+    },
+    {
+      "turn_index": 45,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "하지만, 솅겐 존(국경 자유 통행 지역: Schengen zone)은 이런 측면에서 다소 한 나라같이 작용한다.",
+      "original": "하지만 셨겐 우와 비 그"
+    },
+    {
+      "turn_index": 49,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "오후 10 - 11시 MDT(산악 여름 시간) 사이에 수감자들이 교도소 마당에 화재를 시작했다.",
+      "original": "오, 수감."
+    },
+    {
+      "turn_index": 67,
+      "lang": "ko",
+      "cut": true,
+      "wer": 1.0,
+      "expected_text": "초기에 해당 프로는 토크 라디오에 중점을 둔 사이트이자 장기 인터넷 라디오 사이트인 TogiNet Radio에서 단독으로 진행되었습니다.",
+      "original": "인스"
+    }
+  ],
+  "dropped_segments": [
+    {
+      "turn_index": 8,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "الكاري هو عبارة عن طبق من الأعشاب والبهار مع اللحوم أو الخضار."
+    },
+    {
+      "turn_index": 8,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "A curry is a dish based on herbs and spices, together with either meat or vegetables."
+    },
+    {
+      "turn_index": 14,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "فعلى سبيل المثال، تنسيق تصوير الصور الساكنة الأكثر شيوعاً في العالم هو 35 ميليمتراً، وهو حجم الفيلم المسيطر في نهاية عصر الفيلم التناظري."
+    },
+    {
+      "turn_index": 24,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "The lower the tension, the more positive the life force present. Every person has the potential to find absolute peace and contentment."
+    },
+    {
+      "turn_index": 25,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تملأ الغابات الكثيفة منتزه بحيرات بليفيتش الوطني وتشكلها بالأساس أشجار الزان والتنوب والشوح، ويميزه مزيج من نباتات الألب والبحر الأبيض المتوسط."
+    },
+    {
+      "turn_index": 25,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "The Plitvice Lakes national park is heavily forested, mainly with beech, spruce, and fir trees, and features a mixture of Alpine and Mediterranean vegetation."
+    },
+    {
+      "turn_index": 27,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Along the same line, men are required to wear trousers covering the knees."
+    },
+    {
+      "turn_index": 28,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "من الشمال، يحد الساحل الإفريقي المنطقة، ويحدّها المحيط الأطلسي من الجنوب والغرب."
+    },
+    {
+      "turn_index": 36,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تدعم الولايات المتحدة للجمباز رسالة اللجنة الأولمبية الأمريكية وتقبل الحاجة المطلقة للأسرة الأولمبية لتعزيز بيئةٍ آمنةٍ لجميعِ الرياضيين لدينا."
+    },
+    {
+      "turn_index": 36,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "USA Gymnastics supports the United States Olympic Committee's letter and accepts the absolute need of the Olympic family to promote a safe environment for all of our athletes."
+    },
+    {
+      "turn_index": 42,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "أوروبا قارة صغيرة نسبياً ولكن فيها العديد من الدول المستقلة. وفي ظل الظروف العادية، فإن السفر عبر عدة بلدان يعني اضطرارك إلى المرور عبر طلبات الحصول على التأشيرة ومراقبة جوازات السفر عدة مرات."
+    },
+    {
+      "turn_index": 44,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "인터넷은 집단적인 커뮤니케이션과 사람과 사람 간의 커뮤니케이션 요소를 모두 갖추고 있다."
+    },
+    {
+      "turn_index": 45,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "وبالرغم من ذلك، فإن منطقة شنغن تعمل إلى حد ما كدولة واحدة في هذا الشأن."
+    },
+    {
+      "turn_index": 45,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "The Schengen zone, however, works somewhat like one country in this respect."
+    },
+    {
+      "turn_index": 46,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تتميز أعماله بجودة وتفاصيل مميزة لدرجة جعلته أحد \"الأسماء المعروفة\" القليلة للغاية بين هواة جمع الطوابع. تخصص البعض في جمع أعماله فقط."
+    },
+    {
+      "turn_index": 46,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "His work is of such recognized quality and detail that he is one of the very few \"household names\" among philatelists. Some specialize in collecting his work alone."
+    },
+    {
+      "turn_index": 53,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "ربما ترغب أيضاً في طلب المشورة من حكومات غير حكومتك، ولكن نصيحة تلك الحكومات صادرة خصيصاً لمواطنيها."
+    },
+    {
+      "turn_index": 53,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "You may also wish to consult the advice of governments other than your own, but their advice is designed for their citizens."
+    },
+    {
+      "turn_index": 55,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Fire rescue crews eventually doused the fire by 11:35 pm."
+    },
+    {
+      "turn_index": 56,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تأتي 20٪ من المياه التي تصب من أنهار الكوكب في المحيطات من نهر الأمازون."
+    },
+    {
+      "turn_index": 56,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "A full 20 percent of the water that pours out of the planet's rivers into the oceans comes from the Amazon."
+    },
+    {
+      "turn_index": 59,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "أدى مارتيلي أمس القسم في مجلس انتخابي مؤقت جديد مكون من تسعة أعضاء."
+    },
+    {
+      "turn_index": 59,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Martelly swore in a new Provisional Electoral Council (CEP) of nine members yesterday."
+    },
+    {
+      "turn_index": 61,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "One bomb exploded outside the governor general's office."
+    },
+    {
+      "turn_index": 63,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "بعد بناء السد عام 1963، توقفت الفيضانات الموسمية التي من شأنها أن تنشر الرواسب في جميع أنحاء النهر."
+    },
+    {
+      "turn_index": 64,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "الطقس القاسي هو المصطلح العام لأي ظاهرة مناخية خطيرة قد تسبب ضررًا أو اضطرابًا اجتماعيًا خطيرًا، أو خسارة في الأرواح."
+    },
+    {
+      "turn_index": 64,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Severe weather is the generic term for any dangerous weather phenomenon with the potential to cause damage, serious social disruption, or loss of human life."
+    },
+    {
+      "turn_index": 67,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "In its early days, the show was featured solely at the long-running internet radio site TogiNet Radio, a site focused on talk radio."
+    },
+    {
+      "turn_index": 71,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "وقال مدير الشرطة شاندرا شيخار سولانكي إن المتهمين مثلوا أمام المحكمة بوجوه مغطاة."
+    },
+    {
+      "turn_index": 73,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "لم يستطع تناول الأدوية اللازمة للتغلّب على الألم إذ أن استخدامها ممنوع في الألعاب."
+    },
+    {
+      "turn_index": 73,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "He has been unable to take the drugs needed to overcome his pain as they are banned from the Games."
+    },
+    {
+      "turn_index": 75,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "모든 남아프리카 국립공원과 마찬가지로, 공원에는 매일 보존료와 입장료가 있습니다."
+    },
+    {
+      "turn_index": 79,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "For the Springboks, it ended a five-match losing streak."
+    },
+    {
+      "turn_index": 82,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "The satellite was sent into space by a rocket. Scientists use telescopes in space because the Earth’s atmosphere distorts some of our light and view."
+    },
+    {
+      "turn_index": 85,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "تمّكن العلماء من استنتاج أن المادة الداكنة تؤثر على المادة الداكنة الأخرى بنفس الطريقة التي تؤثر بها المادة الطبيعية."
+    },
+    {
+      "turn_index": 85,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "The scientists were able to conclude that the dark matter affect other dark matter in the same way regular matter does."
+    },
+    {
+      "turn_index": 87,
+      "lang": "en",
+      "cut": true,
+      "expected_text": "Casablanca is one of the least interesting places to shop in all of Morocco."
+    },
+    {
+      "turn_index": 88,
+      "lang": "ar",
+      "cut": true,
+      "expected_text": "لا تجعل القماش يصبح ساخنًا أكثر من اللازم (مما قد يؤدي إلى انكماشه أو احتراقه في أسوأ الحالات)."
+    },
+    {
+      "turn_index": 97,
+      "lang": "ko",
+      "cut": true,
+      "expected_text": "어린이와 노약자를 포함한 6명의 인질들은 필리핀 사진작가들과 마찬가지로 일찍 풀려났다."
+    }
+  ]
+}
