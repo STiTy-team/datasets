@@ -1,0 +1,15 @@
+# 원본 코퍼스 — install.sh 로 다시 만든다. 언어당 수백 MB 다.
+*/data/
+acl6060/acl_6060/
+acl6060/timings_*.json
+
+# 변환 생성물 — convert.py 로 다시 만든다. 어떤 언어를 받았는지에 따라 내용이
+# 달라지므로 공유해도 의미가 없고, `audio` 는 심볼릭 링크다.
+*/dataset.yml
+*/manifest.jsonl
+*/audio
+
+# 실행 산출물. 결과는 STiTy 리포의 bench/results/ 가 담당한다.
+*.log
+__pycache__/
+.venv/

@@ -1,0 +1,6 @@
+# 다운로드
+huggingface_hub>=0.23        # `hf` CLI
+
+# 변환 (오디오 길이 측정 + TSV/XML 파싱은 표준 라이브러리)
+soundfile>=0.12
+PyYAML>=6.0
