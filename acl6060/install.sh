@@ -13,9 +13,27 @@
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO="$(cd "$HERE/.." && pwd)"
 cd "$HERE"
 
-PYTHON="${PYTHON:-python3}"
+# Dependencies come from the repo's pyproject.toml via uv, which builds the
+# environment on demand -- there is no venv to activate and no way to forget.
+# Set PYTHON to bypass uv when the dependencies are already on an interpreter.
+if [[ -n "${PYTHON:-}" ]]; then
+  RUN=("$PYTHON")
+elif command -v uv >/dev/null 2>&1; then
+  RUN=(uv run --project "$REPO" python)
+else
+  cat >&2 <<'USAGE'
+[ERROR] uv not found. Install it:
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+
+Or point PYTHON at an interpreter that already has the dependencies:
+  PYTHON=.venv/bin/python ./acl6060/install.sh
+USAGE
+  exit 1
+fi
+
 SPLIT="${SPLIT:-eval}"
 TGT="${TGT:-de}"
 
@@ -47,8 +65,8 @@ USAGE
     exit 1
   fi
   echo "[timings] recovering sentence timestamps for ${SPLIT}"
-  "$PYTHON" "$RECOVER" --split "$SPLIT" --acl-root "$HERE"
+  "${RUN[@]}" "$RECOVER" --split "$SPLIT" --acl-root "$HERE"
 fi
 
 echo "[convert] split=${SPLIT} tgt=${TGT}"
-"$PYTHON" convert.py --split "$SPLIT" --tgt $TGT
+"${RUN[@]}" convert.py --split "$SPLIT" --tgt $TGT

@@ -39,6 +39,14 @@ id  filename  raw_transcription  transcription  phonemes  num_samples  gender
 넘는 문장이 있으면 **변환을 거부한다.** 20문장짜리 스모크 테스트로는 그런 이상치가
 안 걸리기 때문에 분포 검사를 자동으로 돌린다.
 
+## 전사는 정규화본, 번역 참조는 원문
+
+`transcription` 은 소문자에 문장부호가 없고, `raw_transcription` 은 FLoRes 원문 그대로다.
+소스 전사에는 `transcription` 을 쓴다 — WER·CER 은 양쪽에서 대소문자와 문장부호를 지우고
+비교하므로 대소문자·문장부호로는 차이가 없다(숫자 표기는 둘이 다를 수 있어 바꾸지 않았다). 번역 참조에는 `raw_transcription` 을 쓴다 — BLEU·COMET 은
+대소문자와 문장부호를 번역의 일부로 채점하므로, 정규화본을 참조로 두면 제대로 쓴 번역이
+전부 깎인다.
+
 ## 항목과 세션
 
 항목 하나가 문장 하나이고, `group` 도 그 문장이다 — 즉 **항목마다 새 세션**이다.

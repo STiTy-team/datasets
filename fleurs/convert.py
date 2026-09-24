@@ -34,6 +34,13 @@ LOCALES = {
 def read_tsv(path: Path) -> dict[str, dict]:
     """sentence id -> row.
 
+    `text` is FLEURS's normalized transcription (lowercase, no punctuation) and
+    `raw` the original FLoRes sentence. The source transcript takes `text`; WER and
+    CER normalize casing and punctuation away on both sides anyway. Reference
+    translations take `raw`: BLEU and COMET score casing and punctuation as part of
+    a correct translation, so a stripped reference penalizes every properly
+    written output.
+
     QUOTE_NONE is not optional. test.tsv has no header and carries literal quote
     characters inside the text; letting csv treat one as the start of a quoted
     field merges rows together, and the merged monster then looks like a single
@@ -49,12 +56,13 @@ def read_tsv(path: Path) -> dict[str, dict]:
             sentence_id, filename, raw_transcription, transcription = fields[:4]
             gender = fields[6] if len(fields) > 6 else ""
             text = (transcription or raw_transcription or "").strip()
+            raw = (raw_transcription or transcription or "").strip()
             if not sentence_id or not text:
                 continue
             # Several recordings share one sentence id; first wins so the source
             # and target sides join deterministically.
             out.setdefault(sentence_id, {"filename": filename.strip(), "text": text,
-                                         "speaker": gender.strip()})
+                                         "raw": raw, "speaker": gender.strip()})
     if not out:
         raise SystemExit(f"no usable rows in {path}")
     return out
@@ -84,7 +92,7 @@ def main(argv=None) -> int:
         if locale not in LOCALES:
             raise SystemExit(f"unknown target locale {locale} (known: {sorted(LOCALES)})")
         rows = read_tsv(here / "data" / locale / f"{args.split}.tsv")
-        contract.report_lengths(locale, (r["text"] for r in rows.values()))
+        contract.report_lengths(locale, (r["raw"] for r in rows.values()))
         targets[LOCALES[locale]] = rows
 
     audio_dir = contract.require_dir(
@@ -101,7 +109,7 @@ def main(argv=None) -> int:
         if not wav.is_file():
             skipped_audio += 1
             continue
-        translations = {lang: table[sentence_id]["text"]
+        translations = {lang: table[sentence_id]["raw"]
                         for lang, table in targets.items() if sentence_id in table}
         if len(translations) != len(targets):
             skipped_ref += 1
@@ -109,7 +117,7 @@ def main(argv=None) -> int:
         rows.append(contract.row(
             item_id=f"{src_lang}_{sentence_id}",
             audio_rel=f"audio/{entry['filename']}",
-            duration=contract.probe_duration(wav, "wav"),
+            duration=contract.probe_duration(wav),
             src_lang=src_lang,
             transcript=entry["text"],
             # Unrelated single sentences: one session each, so no context carries
@@ -127,12 +135,13 @@ def main(argv=None) -> int:
               f"language and were skipped")
 
     contract.write_spec(here, name=NAME, split=f"{args.split}-{args.src}",
-                        languages=[src_lang], audio_format="wav",
+                        languages=[src_lang],
                         primary_metric="wer", translations=sorted(targets),
                         group_rule="id",
                         bench_defaults={"trailing_silence_ms": 4000,
                                         "chunk_size_ms": 200, "send_interval_ms": 200})
     contract.write_manifest(here, rows)
+    contract.align(here)
     return contract.verify(here)
 
 

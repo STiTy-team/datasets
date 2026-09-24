@@ -34,17 +34,18 @@ SPLIT=dev TGT="de ja" ./acl6060/install.sh
 `evaluation/ast/recover_acl6060_timings.py` 를 불러 `timings_<split>.json` 을 만든다.
 STiTy 체크아웃이 옆에 없으면 `STITY_REPO` 로 알려주거나 직접 돌린다.
 
-이 시각이 필요한 이유는 둘이다 — 어떤 문장이 어느 발표에 속하는지(`group`), 그리고
-발표 안에서 어떤 순서로 말해졌는지.
+이 시각이 필요한 이유는 셋이다 — 어떤 문장이 어느 발표에 속하는지(`group`), 발표 안에서
+어떤 순서로 말해졌는지, 그리고 발표를 통째로 흘릴 때 참조 문장이 발표의 어느 구간인지.
 
 ## 항목 하나는 문장 하나, 세션 하나는 발표 하나
 
-`segmented_wavs/gold/sent_N.wav` 가 항목이고 `group` 은 그 발표다. 발표 안의 문장들은
-한 핸들러를 이어서 쓰므로 앞 문장의 문맥이 유지된다.
+항목은 gold 문장 하나이고, 오디오는 **발표 통짜 wav 안의 구간**(`offset`·`duration`)이다.
+`group` 은 그 발표다. gold 문장 wav 가 통짜에서 바이트 그대로 잘라낸 것이라 구간을 읽으면
+같은 샘플이 나온다(시각을 ms 로 반올림한 만큼만 다르다).
 
-**발표를 통째로 한 항목으로 흘리는 방식은 쓰지 않는다.** 그렇게 하면 시스템이 내는
-조각과 참조 문장의 경계가 전혀 맞지 않아, 채점 전에 mwerSegmenter 재분절을 거쳐야 한다.
-bench 에는 재분절 단계가 없다. 문장 단위는 그대로 채점된다.
+bench 는 기본으로 문장을 하나씩 흘린다. 데이터셋 설정에 `longform: true` 를 주면 발표 wav 를
+통째로 흘리고, 항목들이 그 발표의 참조 분절(IWSLT 의 segmentation yaml 과 같은 것)이 된다 —
+LongYAAL 은 이쪽에서만 나온다.
 
 ## 발표 안 순서는 seg id 가 아니라 시각이다
 
@@ -60,5 +61,5 @@ acl6060/
   timings_<split>.json                   생성물 (git 에 없다)
   dataset.yml                            생성물
   manifest.jsonl                         생성물
-  audio -> acl_6060/<split>/segmented_wavs/gold
+  audio -> acl_6060/<split>/full_wavs
 ```

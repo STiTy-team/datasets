@@ -1,0 +1,32 @@
+[project]
+name = "stity-bench-datasets"
+version = "0.0.0"
+description = "STiTy bench 데이터셋 변환기와 녹음 데스크"
+requires-python = ">=3.11"
+
+# 변환에 필요한 전부. dataset.yml 을 읽고 쓰는 데 PyYAML, 오디오를 읽고 16 kHz
+# mono PCM16 wav 로 다시 쓰는 데 soundfile(mp3·opus·sph 디코딩 포함)과 numpy,
+# 16 kHz 가 아닌 원본을 리샘플하는 데 soxr 가 쓰인다. 오디오를 parquet 에 담아 배포하는
+# 코퍼스(mls, covost2)를 푸는 데 pyarrow, kosp2e 의 분할 목록(xlsx)을 읽는 데 openpyxl.
+# 변환 끝에 참조 전사의 단어마다 발화 시각을 재는 강제정렬기(Qwen3-ForcedAligner)가 qwen-asr.
+dependencies = [
+    "numpy>=2.4.6",
+    "openpyxl>=3.1.5",
+    "pyarrow>=25.0.1",
+    "PyYAML>=6.0",
+    "qwen-asr>=0.0.6",
+    "soundfile>=0.12",
+    "soxr>=1.1.0",
+]
+
+# install.sh 들이 부르는 `hf` CLI. 0.34 이전에는 `huggingface-cli` 라는 이름뿐이라
+# install.sh 의 `command -v hf` 검사가 통과하지 못한다. remotezip 은 kosp2e 의 17 GB zip
+# 에서 필요한 wav 만 HTTP range 요청으로 꺼낸다.
+[dependency-groups]
+download = [
+    "huggingface_hub>=0.34",
+    "remotezip>=0.12.6",
+]
+
+[tool.uv]
+package = false

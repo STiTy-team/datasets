@@ -7,6 +7,7 @@ acl6060/timings_*.json
 # 달라지므로 공유해도 의미가 없고, `audio` 는 심볼릭 링크다.
 */dataset.yml
 */manifest.jsonl
+*/alignment.jsonl
 */audio
 
 # 실행 산출물. 결과는 STiTy 리포의 bench/results/ 가 담당한다.

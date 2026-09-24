@@ -1,15 +1,10 @@
 #!/usr/bin/env python3
 """ACL 60/60 -> the bench dataset contract. Conference talks, en -> many.
 
-One item is one *gold sentence* from segmented_wavs/gold/sent_N.wav, with group
-set to the talk it came from. That is the mapping the contract wants: one handler
-lives for one talk, so sentences inside a talk keep their context and unrelated
-talks never share one.
-
-Streaming a whole 10-minute talk as a single item is the other option, and it is
-not used here. The pieces a streaming system emits do not line up with reference
-sentence boundaries, so scoring needs mwerSegmenter to realign them first, and
-bench has no resegmentation stage. Sentence-level items are scorable directly.
+One item is one *gold sentence*, pointing into its talk's full wav with the
+offset/duration recovered by byte-matching (timings_<split>.json). group is the
+talk. bench streams items one by one by default, and with `longform: true` it
+streams each talk wav whole and uses the items as the reference segmentation.
 
     python acl6060/convert.py --split eval --tgt de
 """
@@ -91,9 +86,9 @@ def main(argv=None) -> int:
                 f"in {lang}. Sentence alignment would be wrong.")
         targets[lang] = table
 
-    gold_dir = contract.require_dir(split_dir / "segmented_wavs" / "gold",
+    talk_dir = contract.require_dir(split_dir / "full_wavs",
                                     "The release should contain it.")
-    contract.link_audio(here, gold_dir)
+    contract.link_audio(here, talk_dir)
 
     # Ordered by (talk, time within talk). Time, not seg id: gold boundaries
     # overlap in a few places, so speaking order and id order disagree. bench
@@ -110,8 +105,9 @@ def main(argv=None) -> int:
     rows = []
     missing_audio = empty = 0
     for sid in ordered:
-        wav = gold_dir / f"sent_{sid}.wav"
-        if not wav.is_file():
+        timing = by_seg[sid]
+        talk_id = str(timing["talk_id"])
+        if not (talk_dir / f"{talk_id}.wav").is_file():
             missing_audio += 1
             continue
         text = source[sid]
@@ -119,11 +115,11 @@ def main(argv=None) -> int:
         if not text or any(not t for t in translations.values()):
             empty += 1
             continue
-        talk_id = str(by_seg[sid]["talk_id"])
         rows.append(contract.row(
             item_id=f"{args.split}_sent_{sid}",
-            audio_rel=f"audio/sent_{sid}.wav",
-            duration=contract.probe_duration(wav, "wav"),
+            audio_rel=f"audio/{talk_id}.wav",
+            offset=float(timing["offset"]),
+            duration=float(timing["duration"]),
             src_lang="en",
             transcript=text,
             group=talk_id,
@@ -133,16 +129,17 @@ def main(argv=None) -> int:
             break
 
     if missing_audio:
-        print(f"warning: {missing_audio} sentence(s) had no gold wav and were skipped")
+        print(f"warning: {missing_audio} sentence(s) had no talk wav and were skipped")
     if empty:
         print(f"warning: {empty} sentence(s) were empty in some language and were skipped")
 
     contract.write_spec(here, name=NAME, split=args.split, languages=["en"],
-                        audio_format="wav", primary_metric="wer",
+                        primary_metric="wer",
                         translations=sorted(targets), group_rule="talk_id",
                         bench_defaults={"trailing_silence_ms": 4000,
                                         "chunk_size_ms": 200, "send_interval_ms": 200})
     contract.write_manifest(here, rows)
+    contract.align(here)
     return contract.verify(here)
 
 
