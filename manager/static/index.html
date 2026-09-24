@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dataset manager</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+  <h1>dataset <span>manager</span></h1>
+  <select id="dataset"></select>
+  <button id="new" class="ghost">+ 새 데이터셋</button>
+  <nav class="tabs">
+    <button data-tab="browse" class="tab">살펴보기</button>
+    <button data-tab="record" class="tab">녹음</button>
+  </nav>
+  <div class="path" id="path">…</div>
+  <div class="totals"><b id="total-count">0</b> items · <b id="total-dur">0:00</b></div>
+</header>
+
+<div id="new-panel" class="new-panel hidden">
+  <label>이름
+    <input type="text" id="new-name" placeholder="overlap_ko" maxlength="64">
+  </label>
+  <label>언어 <span class="sub">쉼표로 여러 개</span>
+    <input type="text" id="new-langs" placeholder="ko, en">
+  </label>
+  <button id="new-create">만들기</button>
+  <button id="new-cancel" class="ghost">취소</button>
+  <span id="new-error" class="new-error"></span>
+</div>
+
+<main id="browse" class="view">
+  <section class="shape">
+    <h2>모양</h2>
+    <div id="shape"></div>
+
+    <h2>dataset.yml</h2>
+    <pre id="spec" class="code"></pre>
+
+    <h2>검증 <button id="verify" class="ghost">verify() 돌리기</button></h2>
+    <pre id="verify-out" class="code hidden"></pre>
+  </section>
+
+  <section class="takes">
+    <div class="list-head">
+      <h2>항목 <span id="range" class="dim"></span></h2>
+      <input type="search" id="search" placeholder="id · 전사 · 번역 · speaker 검색">
+    </div>
+    <div id="list" class="list"></div>
+    <p id="empty" class="empty">이 데이터셋에는 manifest.jsonl 이 없다. convert.py 를
+      돌리거나, 녹음 탭에서 바로 녹음하면 만들어진다.</p>
+    <button id="more" class="ghost hidden">더 보기</button>
+  </section>
+</main>
+
+<main id="record" class="view">
+  <section class="recorder">
+    <div class="status" id="status" data-state="idle">
+      <span class="dot"></span><span id="status-text">마이크 권한 필요</span>
+    </div>
+
+    <div class="clock" id="clock">0:00</div>
+
+    <button id="record-btn" class="record">마이크 켜기</button>
+    <p class="hint"><kbd>Space</kbd> 로도 시작 / 정지</p>
+
+    <div class="fields">
+      <label>항목 접두어
+        <input type="text" id="prefix" value="rec" maxlength="24">
+      </label>
+      <label>화자 수
+        <input type="number" id="speakers" min="1" max="8" value="2">
+      </label>
+      <label>src_lang
+        <input type="text" id="src-lang" maxlength="16" placeholder="en"
+               list="lang-options" autocomplete="off">
+        <datalist id="lang-options"></datalist>
+      </label>
+      <label>speaker
+        <input type="text" id="speaker" maxlength="64" placeholder="비워 둬도 된다">
+      </label>
+    </div>
+    <p class="warn">브라우저 DSP (에코 제거 · 잡음 억제 · 자동 게인) 는 항상 꺼진 채로
+      녹음한다. 잡음 억제기는 겹친 두 번째 목소리를 잡음으로 보고 지우도록 학습돼 있어,
+      겹침 데이터셋이 담으려는 것을 정확히 망가뜨린다. 녹음은 16 kHz mono s16le wav 로
+      <code>data/sessions/</code> 에 떨어지고 <code>manifest.jsonl</code> 에 행이 붙는다.</p>
+  </section>
+
+  <section class="takes">
+    <h2>최근 항목 <span id="recent-range" class="dim"></span></h2>
+    <div id="recent" class="list"></div>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

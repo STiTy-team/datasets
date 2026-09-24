@@ -1,0 +1,7 @@
+# 받은 코퍼스 — install.sh 가 언어당 수백 MB 를 받는다.
+/data/
+/.cache/
+
+# 대화 합성 산출물. wav 가 수백 MB 이고 jsonl 의 `wav` 는 절대경로라
+# 다른 머신에서 읽히지 않는다 — 만든 머신에만 있으면 된다.
+/conversations/

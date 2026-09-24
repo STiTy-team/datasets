@@ -1,0 +1,6 @@
+# 받은 코퍼스 — install.sh / hf_download.py 가 만든다.
+/data/
+/acl_6060/
+
+# 실행 산출물
+/timings_*.json

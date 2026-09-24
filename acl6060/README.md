@@ -5,6 +5,24 @@ ACL 2022 발표를 영어로 전사하고 10개 언어로 번역한 코퍼스. �
 
 ## 받는 방법
 
+두 갈래이고, **나오는 데이터셋이 서로 다르다.**
+
+```bash
+./acl6060/install.sh                       # SOURCE=hf (기본) — 받는 것까지 한다
+SPLIT=dev TGT="de ja" ./acl6060/install.sh
+```
+
+기본은 HuggingFace 미러 `ymoslem/acl-6060` (CC-BY-4.0) 다. 스플릿당 parquet 하나에
+gold 문장 wav 와 11개 언어 텍스트가 들어 있고, 이 리포만으로 받아서 변환까지 끝난다.
+토큰이 설정돼 있으면 쓰지만(`HF_TOKEN` 또는 `hf auth login`) 공개 저장소라 없어도 된다.
+
+**미러에는 발표 정보가 없다.** 문장이 어느 발표에서 왔는지(talk id)도, 통짜 발표 wav 도
+없다. 그래서 HF 경로에서는 **항목 하나가 세션 하나**이고, 문장을 가로질러 사는 핸들러는
+전혀 돌지 않는다. `longform: true` 로 발표를 통째로 흘리는 실행도 할 수 없다. 그게 재려는
+대상이면 아래 배포판 경로를 쓴다.
+
+### 배포판에서 직접 (SOURCE=release)
+
 **스크립트가 내려받지 않는다.** 배포 경로가 판본마다 달라 자동화하면 조용히 틀린 것을
 받는다. ACL 60/60 배포 페이지에서 직접 받아 `acl6060/` 안에 아래 형태로 푼다.
 
@@ -20,8 +38,8 @@ acl6060/
 ```
 
 ```bash
-./acl6060/install.sh                  # eval → de
-SPLIT=dev TGT="de ja" ./acl6060/install.sh
+SOURCE=release ./acl6060/install.sh              # eval → de
+SPLIT=dev TGT="de ja" SOURCE=release ./acl6060/install.sh
 ```
 
 ## 시각 정보가 배포판에 없다
@@ -34,17 +52,18 @@ SPLIT=dev TGT="de ja" ./acl6060/install.sh
 `evaluation/ast/recover_acl6060_timings.py` 를 불러 `timings_<split>.json` 을 만든다.
 STiTy 체크아웃이 옆에 없으면 `STITY_REPO` 로 알려주거나 직접 돌린다.
 
-이 시각이 필요한 이유는 둘이다 — 어떤 문장이 어느 발표에 속하는지(`group`), 그리고
-발표 안에서 어떤 순서로 말해졌는지.
+이 시각이 필요한 이유는 셋이다 — 어떤 문장이 어느 발표에 속하는지(`group`), 발표 안에서
+어떤 순서로 말해졌는지, 그리고 발표를 통째로 흘릴 때 참조 문장이 발표의 어느 구간인지.
 
 ## 항목 하나는 문장 하나, 세션 하나는 발표 하나
 
-`segmented_wavs/gold/sent_N.wav` 가 항목이고 `group` 은 그 발표다. 발표 안의 문장들은
-한 핸들러를 이어서 쓰므로 앞 문장의 문맥이 유지된다.
+항목은 gold 문장 하나이고, 오디오는 **발표 통짜 wav 안의 구간**(`offset`·`duration`)이다.
+`group` 은 그 발표다. gold 문장 wav 가 통짜에서 바이트 그대로 잘라낸 것이라 구간을 읽으면
+같은 샘플이 나온다(시각을 ms 로 반올림한 만큼만 다르다).
 
-**발표를 통째로 한 항목으로 흘리는 방식은 쓰지 않는다.** 그렇게 하면 시스템이 내는
-조각과 참조 문장의 경계가 전혀 맞지 않아, 채점 전에 mwerSegmenter 재분절을 거쳐야 한다.
-bench 에는 재분절 단계가 없다. 문장 단위는 그대로 채점된다.
+bench 는 기본으로 문장을 하나씩 흘린다. 데이터셋 설정에 `longform: true` 를 주면 발표 wav 를
+통째로 흘리고, 항목들이 그 발표의 참조 분절(IWSLT 의 segmentation yaml 과 같은 것)이 된다 —
+LongYAAL 은 이쪽에서만 나온다.
 
 ## 발표 안 순서는 seg id 가 아니라 시각이다
 
@@ -56,9 +75,14 @@ manifest 순서를 그대로 둔다.** id 로 다시 정렬하면 발표 순서�
 
 ```
 acl6060/
-  acl_6060/                              직접 푼 것 (git 에 없다)
-  timings_<split>.json                   생성물 (git 에 없다)
+  data/<split>/sent_NNNN.wav             HF 경로가 16 kHz 로 다시 쓴 문장 wav (git 에 없다)
+  acl_6060/                              배포판 경로에서 직접 푼 것 (git 에 없다)
+  timings_<split>.json                   배포판 경로의 생성물 (git 에 없다)
   dataset.yml                            생성물
   manifest.jsonl                         생성물
-  audio -> acl_6060/<split>/segmented_wavs/gold
+  alignment.jsonl                        생성물
+  audio -> data/<split>  또는  acl_6060/<split>/full_wavs
 ```
+
+`dataset.yml` 의 `split` 이 어느 경로로 만든 것인지 말한다 — HF 경로는 `eval-hf`,
+배포판 경로는 `eval`. 두 실행을 비교할 때 이 값이 다르면 같은 코퍼스가 아니다.

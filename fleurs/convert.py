@@ -8,7 +8,10 @@ reference.translations keyed by language, so a single manifest serves en->ko,
 en->de and en->ja at once -- adding a target costs one TSV, not another audio
 download.
 
-    python fleurs/convert.py --src en_us --tgt ko_kr de_de
+One source language is one dataset: the output goes to fleurs/<src>/, so building
+ko_kr next to en_us leaves en_us alone.
+
+    python fleurs/convert.py --src en_us --tgt ko_kr de_de      # -> fleurs/en_us/
 """
 import argparse
 import csv
@@ -31,8 +34,25 @@ LOCALES = {
 }
 
 
+def unquote(field: str) -> str:
+    """A raw_transcription field that contains a quote character is written the
+    csv way -- wrapped in quotes with inner quotes doubled -- but read with
+    QUOTE_NONE (see read_tsv); undo that here for the one field that needs it."""
+    field = field.strip()
+    if len(field) >= 2 and field[0] == field[-1] == '"':
+        return field[1:-1].replace('""', '"')
+    return field
+
+
 def read_tsv(path: Path) -> dict[str, dict]:
     """sentence id -> row.
+
+    `text` is FLEURS's normalized transcription (lowercase, no punctuation) and
+    `raw` the original FLoRes sentence. The source transcript takes `text`; WER and
+    CER normalize casing and punctuation away on both sides anyway. Reference
+    translations take `raw`: BLEU and COMET score casing and punctuation as part of
+    a correct translation, so a stripped reference penalizes every properly
+    written output.
 
     QUOTE_NONE is not optional. test.tsv has no header and carries literal quote
     characters inside the text; letting csv treat one as the start of a quoted
@@ -49,12 +69,13 @@ def read_tsv(path: Path) -> dict[str, dict]:
             sentence_id, filename, raw_transcription, transcription = fields[:4]
             gender = fields[6] if len(fields) > 6 else ""
             text = (transcription or raw_transcription or "").strip()
+            raw = unquote(raw_transcription) or text
             if not sentence_id or not text:
                 continue
             # Several recordings share one sentence id; first wins so the source
             # and target sides join deterministically.
             out.setdefault(sentence_id, {"filename": filename.strip(), "text": text,
-                                         "speaker": gender.strip()})
+                                         "raw": raw, "speaker": gender.strip()})
     if not out:
         raise SystemExit(f"no usable rows in {path}")
     return out
@@ -71,6 +92,7 @@ def main(argv=None) -> int:
     args = p.parse_args(argv)
 
     here = contract.here(__file__)
+    dataset_dir = here / args.src
     if args.src not in LOCALES:
         raise SystemExit(f"unknown source locale {args.src} (known: {sorted(LOCALES)})")
     src_lang = LOCALES[args.src]
@@ -84,16 +106,15 @@ def main(argv=None) -> int:
         if locale not in LOCALES:
             raise SystemExit(f"unknown target locale {locale} (known: {sorted(LOCALES)})")
         rows = read_tsv(here / "data" / locale / f"{args.split}.tsv")
-        contract.report_lengths(locale, (r["text"] for r in rows.values()))
+        contract.report_lengths(locale, (r["raw"] for r in rows.values()))
         targets[LOCALES[locale]] = rows
 
     audio_dir = contract.require_dir(
         here / "data" / args.src / "audio" / args.split,
         f"Extract it:\n  tar xzf {here}/data/{args.src}/audio/{args.split}.tar.gz "
         f"-C {here}/data/{args.src}/audio/")
-    contract.link_audio(here, audio_dir)
 
-    rows = []
+    kept = []
     skipped_audio = skipped_ref = 0
     for sentence_id in sorted(source, key=lambda s: (len(s), s)):
         entry = source[sentence_id]
@@ -101,24 +122,36 @@ def main(argv=None) -> int:
         if not wav.is_file():
             skipped_audio += 1
             continue
-        translations = {lang: table[sentence_id]["text"]
+        translations = {lang: table[sentence_id]["raw"]
                         for lang, table in targets.items() if sentence_id in table}
         if len(translations) != len(targets):
             skipped_ref += 1
             continue
-        rows.append(contract.row(
-            item_id=f"{src_lang}_{sentence_id}",
-            audio_rel=f"audio/{entry['filename']}",
-            duration=contract.probe_duration(wav, "wav"),
-            src_lang=src_lang,
-            transcript=entry["text"],
-            # Unrelated single sentences: one session each, so no context carries
-            # from one utterance into the next.
-            group=f"{src_lang}_{sentence_id}",
-            speaker=entry["speaker"],
-            translations=translations))
-        if args.limit and len(rows) >= args.limit:
+        kept.append((sentence_id, entry, wav, translations))
+        if args.limit and len(kept) >= args.limit:
             break
+
+    # The Hugging Face release stores 32-bit float wav, not the PCM16 the contract
+    # allows, so each clip is rewritten once. Already-conforming files are skipped.
+    out = here / "data" / "wav16k" / args.src / args.split
+    print(f"transcoding {len(kept)} clips -> {out} ...")
+    durations = contract.transcode_all([(wav, out / entry["filename"])
+                                        for _, entry, wav, _ in kept])
+    dataset_dir.mkdir(exist_ok=True)
+    contract.link_audio(dataset_dir, out)
+
+    rows = [contract.row(
+        item_id=f"{src_lang}_{sentence_id}",
+        audio_rel=f"audio/{entry['filename']}",
+        duration=duration,
+        src_lang=src_lang,
+        transcript=entry["text"],
+        # Unrelated single sentences: one session each, so no context carries
+        # from one utterance into the next.
+        group=f"{src_lang}_{sentence_id}",
+        speaker=entry["speaker"],
+        translations=translations)
+        for (sentence_id, entry, _, translations), duration in zip(kept, durations)]
 
     if skipped_audio:
         print(f"warning: {skipped_audio} sentence(s) had no audio file and were skipped")
@@ -126,14 +159,15 @@ def main(argv=None) -> int:
         print(f"warning: {skipped_ref} sentence(s) lacked a reference in some target "
               f"language and were skipped")
 
-    contract.write_spec(here, name=NAME, split=f"{args.split}-{args.src}",
-                        languages=[src_lang], audio_format="wav",
+    contract.write_spec(dataset_dir, name=f"{NAME}/{args.src}", split=args.split,
+                        languages=[src_lang],
                         primary_metric="wer", translations=sorted(targets),
                         group_rule="id",
                         bench_defaults={"trailing_silence_ms": 4000,
                                         "chunk_size_ms": 200, "send_interval_ms": 200})
-    contract.write_manifest(here, rows)
-    return contract.verify(here)
+    contract.write_manifest(dataset_dir, rows)
+    contract.align(dataset_dir)
+    return contract.verify(dataset_dir)
 
 
 if __name__ == "__main__":
