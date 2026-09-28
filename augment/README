@@ -1,0 +1,34 @@
+augment/ — noise and room impulse responses for bench's `augment` (STiTy bench/augment/)
+
+Layout: noise/<place>/*.wav and room/<place>/*.wav, 16 kHz mono. _src/ keeps the original
+downloads; bench never reads it (it only looks under noise/<place> and room/<place>).
+Prepared 2026-09-28. Rebuild with ./augment/install.sh (downloads to _src/, then convert.py).
+
+noise/cafe/demand_scafe_ch{01,06,11,16}.wav
+  Source:  DEMAND (Diverse Environments Multichannel Acoustic Noise Database), environment
+           SCAFE ("Terrace of a cafeteria at a public square"), file SCAFE_48k.zip,
+           https://zenodo.org/records/1227121 (doi:10.5281/zenodo.1227121).
+           Thiemann, Ito, Vincent, "The Diverse Environments Multi-channel Acoustic Noise
+           Database (DEMAND)", ICA 2013.
+  License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Attribution above.
+  Made:    zip md5 1a4ee387f1900f4b15ba219481c76556 (matches Zenodo). Four of the 16 array
+           microphones, each the full 300 s recording, resampled 48 kHz -> 16 kHz
+           (soxr), written as PCM_16. DEMAND ships a 16 kHz version of other
+           environments but not of SCAFE on this record, hence the resampling.
+  Check:   load at 16 kHz mono through core.utils.audio.load_window; RMS -39.6..-41.8 dBFS,
+           peak -16..-18 dBFS, quietest 1 s window -50 dBFS (never silent).
+
+room/hall/arvedi_S0_{A105,A306,A406,A506}_cap1.wav
+  Source:  "The Sound of the Violin's Home: A Higher-Order Room Impulse Response Dataset of
+           the Arvedi Auditorium in Cremona", https://zenodo.org/records/20098848
+           (arvedi_auditorium_dataset.zip, 2026-05-09). A contemporary concert hall (Museo del
+           Violino). Source S0 = omnidirectional loudspeaker at the stage centre; receivers
+           A105 (front rows) to A506 (back rows).
+  License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Attribution above.
+  Made:    only these four rirs/rir-S0-<receiver>.wav files were read out of the zip (HTTP
+           range requests; originals in _src/). Capsule 1 of the 8-capsule spherical array,
+           48 kHz -> 16 kHz, peak-normalised to 0.9, written as FLOAT. Length 2.0 s.
+  Why not OpenAIR: openair.hosted.york.ac.uk answered "Account Suspended" on 2026-09-28.
+  Check:   direct-sound peak at 9.7 / 15.3 / 17.8 / 20.7 ms (consistent with ~3.4-7 m),
+           36-40 dB above everything before it; Schroeder T20-based RT60 1.28-1.40 s;
+           direct-to-reverberant ratio -1 to -3 dB.
