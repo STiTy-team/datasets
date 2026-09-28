@@ -93,7 +93,8 @@ def main(argv=None) -> int:
         if call not in segments:
             raise SystemExit(f"{call}: no segments in segments.jsonl")
         for s in sorted(segments[call], key=lambda s: s["start_ts"]):
-            start, end = float(s["start_ts"]), min(float(s["end_ts"]), length)
+            # One segment of 4446796 starts at -0.04 s.
+            start, end = max(float(s["start_ts"]), 0.0), min(float(s["end_ts"]), length)
             text = clean(s["transcription"])
             if end <= start:
                 past_end += 1
