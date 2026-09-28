@@ -33,6 +33,7 @@ cd ~/STiTy && make bench CONFIG=asr.qwen-seg+mt.qwen3.5-4b DATASET=fleurs-en-ko
 | `enkostc/` | TED 강연, en → ko | yaml 구간 하나 (`offset`) | 강연 하나 | **직접 받아 넣는다** (ETRI AI 나눔) |
 | `zeroth/` | 한국어 뉴스 낭독, ko ASR | 발화 하나 | 항목마다 새로 | 스크립트가 받는다 (HF 미러) |
 | `ksponspeech/` | 한국어 자유 대화, ko ASR | 발화 하나 | 항목마다 새로 | 스크립트가 받는다 (**AI Hub 승인·API 키 필요**) |
+| `northstar-260928/` | 5명이 연기한 고깃집 비즈니스 저녁, en ↔ ko 대화, 겹침·잡음·말장난 | 대본 줄 하나 (`offset`) | 장면 하나 | **변환 결과가 커밋돼 있다** |
 | `musan/` | 잡음·음악·말소리. 위 데이터셋에 섞는다 | 원본과 같다 | 원본과 같다 | 스크립트가 받는다 (11 GB 를 흘려 받는다) |
 
 각 디렉토리에 `install.sh`(받기), `convert.py`(변환), `README.md`(그 코퍼스 이야기)가 있다.

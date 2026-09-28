@@ -1,0 +1,59 @@
+name: northstar-260928
+split: test
+languages:
+- en
+- ko
+audio:
+  format: wav
+  sample_rate: 16000
+provides:
+  transcript: true
+  translations:
+  - en
+  - ko
+primary_metric: cer
+group_rule: scene (one recording of the six-scene script, 5 speakers, en+ko)
+bench_defaults:
+  trailing_silence_ms: 4000
+  chunk_size_ms: 200
+  send_interval_ms: 200
+speakers:
+  A:
+    name: Mike Donovan
+    lang: en
+    voice: male, General American
+  B:
+    name: Emma Whitfield
+    lang: en
+    voice: female, Southern British
+  C:
+    name: 김태호 부장
+    lang: ko
+    voice: male, Seoul / Gyeongsang
+  D:
+    name: 박지은 과장
+    lang: ko
+    voice: female, Seoul
+  E:
+    name: 이준서 대리
+    lang: ko
+    voice: male, Seoul, low volume
+scenes:
+  scene1:
+    title: Scene 1 — Arrival & ordering (0:00–1:20)
+    recording: 20260928_221247.m4a
+  scene2:
+    title: 'Scene 2 — Meeting recap: dates, numbers & budget (1:20–3:50)'
+    recording: 20260928_221627.m4a
+  scene3:
+    title: Scene 3 — Food, etiquette & the toast (3:50–5:40)
+    recording: 20260928_221959.m4a
+  scene4:
+    title: Scene 4 — The phone call & side talk (5:40–6:50)
+    recording: 20260928_222200.m4a
+  scene5:
+    title: Scene 5 — Baseball, dialect, weekend plans & jokes (6:50–8:50)
+    recording: 20260928_222328.m4a
+  scene6:
+    title: Scene 6 — Contacts, the bill & goodbyes (8:50–10:00)
+    recording: 20260928_222605.m4a
