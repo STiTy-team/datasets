@@ -625,7 +625,7 @@ def main(argv=None) -> int:
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--root", default=str(ROOT), help="repo root holding the datasets")
     p.add_argument("--host", default="127.0.0.1")
-    p.add_argument("--port", type=int, default=8765)
+    p.add_argument("--port", type=int, default=9280)
     p.add_argument("--open", action="store_true", help="open a browser tab on start")
     args = p.parse_args(argv)
 
