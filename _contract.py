@@ -342,6 +342,12 @@ ALIGNER_LANGUAGES = {
 }
 UNSPACED_LANGUAGES = {"ja", "yue", "zh"}
 LOCATE_PAD_SEC = 0.15
+# Faster than anyone speaks: the aligner lost its place. In one mcif talk a 180 s
+# piece put 41 words into 1.3 s; the same talk in 90 s pieces came out right.
+LOCATE_MAX_UNITS_PER_SEC = 12.0
+# Slack for the aligner's own imprecision, so a quick "对吧" (2 units, 0.16 s) passes.
+LOCATE_SLACK_SEC = 0.25
+LOCATE_MIN_PIECE_SEC = 45.0
 
 
 @dataclass(frozen=True)
@@ -397,22 +403,23 @@ def align(dataset_dir: Path) -> Path | None:
     return path
 
 
-def locate_sentences(audio_path: Path, sentences: list[str],
-                     src_lang: str) -> list[tuple[float, float]]:
+def locate_sentences(audio_path: Path, sentences: list[str], src_lang: str,
+                     piece_sec: float = ALIGN_PIECE_SEC) -> list[tuple[float, float]]:
     """Where each sentence of one long recording is spoken: (offset, duration), in order.
 
     For a corpus that ships a talk as one wav plus its sentences and no timestamps
     (mcif, bstc). The whole talk is aligned the way align() aligns any long item,
     and a sentence runs from its first word's start to its last word's end, widened
     by up to LOCATE_PAD_SEC into the silence on either side but never past halfway
-    to a neighbour.
+    to a neighbour. A sentence squeezed past LOCATE_MAX_UNITS_PER_SEC means the
+    aligner drifted, and the talk is aligned again in pieces half as long.
     """
     # Joined with a space even for Chinese: without one, a sentence ending in a
     # Latin word or number would merge with the next into one aligner word.
     talk = {"id": audio_path.stem, "audio": audio_path.name, "src_lang": src_lang,
             "duration": probe_duration(audio_path),
             "reference": {"transcript": " ".join(sentences)}}
-    [(_, words)] = _aligned_words(audio_path.parent, [talk])
+    [(_, words)] = _aligned_words(audio_path.parent, [talk], piece_sec)
     language = ALIGNER_LANGUAGES[src_lang]
     counts = [len(_aligner().aligner_processor.encode_timestamp(s, language)[0])
               for s in sentences]
@@ -426,6 +433,19 @@ def locate_sentences(audio_path: Path, sentences: list[str],
     ends = list(accumulate(counts))
     spans = [(words[end - count]["start"], words[end - 1]["end"])
              for count, end in zip(counts, ends)]
+    squeezed = [i for i, ((start, stop), count) in enumerate(zip(spans, counts))
+                if stop <= start
+                or count > LOCATE_MAX_UNITS_PER_SEC * (stop - start + LOCATE_SLACK_SEC)]
+    if squeezed:
+        i = squeezed[0]
+        where = (f"sentence {i} ({counts[i]} units in "
+                 f"{spans[i][1] - spans[i][0]:.2f}s at {spans[i][0]:.1f}s)")
+        if piece_sec / 2 < LOCATE_MIN_PIECE_SEC:
+            raise SystemExit(f"{audio_path.name}: {where} even in {piece_sec:.0f}s pieces "
+                             f"-- inspect the audio and its sentences")
+        print(f"  {audio_path.name}: {where}; aligning again in {piece_sec / 2:.0f}s pieces",
+              flush=True)
+        return locate_sentences(audio_path, sentences, src_lang, piece_sec / 2)
     located = []
     for index, (start, stop) in enumerate(spans):
         previous_stop = spans[index - 1][1] if index else 0.0
@@ -436,9 +456,10 @@ def locate_sentences(audio_path: Path, sentences: list[str],
     return located
 
 
-def _aligned_words(dataset_dir: Path, items: list[dict]):
+def _aligned_words(dataset_dir: Path, items: list[dict],
+                   piece_sec: float = ALIGN_PIECE_SEC):
     """(item, its words with times) for each item, as each one finishes aligning."""
-    pieces = _pieces(dataset_dir, items)
+    pieces = _pieces(dataset_dir, items, piece_sec)
     pieces_left = Counter(p.item["id"] for p in pieces)
     words: dict[str, list[dict]] = {}
     aligner = _aligner()
@@ -464,16 +485,17 @@ def _method(item: dict) -> str:
     return ALIGNER
 
 
-def _pieces(dataset_dir: Path, items: list[dict]) -> list[_Piece]:
+def _pieces(dataset_dir: Path, items: list[dict],
+            piece_sec: float = ALIGN_PIECE_SEC) -> list[_Piece]:
     """Short items whole; long ones cut at their quietest moments.
 
-    A long item's audio is cut into pieces of at most ALIGN_PIECE_SEC with
+    A long item's audio is cut into pieces of at most piece_sec with
     qwen_asr's own cutter, and each piece is transcribed. Those transcriptions
     only locate the cuts in the reference transcript (_split_reference); the
     words that get aligned are always the reference's.
     """
-    long_items = [i for i in items if i["duration"] > ALIGN_PIECE_SEC]
-    cuts = _cut_and_transcribe(dataset_dir, long_items) if long_items else {}
+    long_items = [i for i in items if i["duration"] > piece_sec]
+    cuts = _cut_and_transcribe(dataset_dir, long_items, piece_sec) if long_items else {}
     pieces = []
     for item in items:
         transcript = item["reference"]["transcript"]
@@ -488,7 +510,7 @@ def _pieces(dataset_dir: Path, items: list[dict]) -> list[_Piece]:
     return pieces
 
 
-def _cut_and_transcribe(dataset_dir: Path, items: list[dict]
+def _cut_and_transcribe(dataset_dir: Path, items: list[dict], piece_sec: float
                         ) -> dict[str, list[tuple[float, float, str]]]:
     """Per item, its pieces as (start, duration, what the ASR heard there)."""
     import torch
@@ -506,7 +528,7 @@ def _cut_and_transcribe(dataset_dir: Path, items: list[dict]
         language = ALIGNER_LANGUAGES[item["src_lang"]]
         cuts[item["id"]] = [
             (start, len(chunk) / sr, asr.transcribe(audio=(chunk, sr), language=language)[0].text)
-            for chunk, start in split_audio_into_chunks(audio, sr, ALIGN_PIECE_SEC)]
+            for chunk, start in split_audio_into_chunks(audio, sr, piece_sec)]
         print(f"  align: cut {n}/{len(items)} long items", flush=True)
     del asr
     torch.cuda.empty_cache()
