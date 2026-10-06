@@ -15,6 +15,12 @@ alignment.jsonl
 # 실행 산출물. 결과는 STiTy 리포의 bench/results/ 가 담당한다.
 *.log
 
+# make install 이 남기는 것 — 어떻게 만들었는지(build.json), 설치 성공 표시(.status), 동시 빌드 막기, 빌드 로그.
+build.json
+.status
+.locks/
+.logs/
+
 # Python
 __pycache__/
 *.py[cod]

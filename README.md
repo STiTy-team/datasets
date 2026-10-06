@@ -9,11 +9,44 @@
 git clone git@github.com:STiTy-team/datasets.git ~/datasets
 export STITY_DATA_ROOT=~/datasets            # 쉘 프로필에 넣어 두면 편하다
 
-cd ~/datasets
-SRC="en_us ko_kr" TGT=ko_kr bash fleurs/install.sh   # fleurs/en_us, fleurs/ko_kr: 같은 270문장
-
-cd ~/STiTy && make bench CONFIG=asr.qwen-seg+mt.qwen3.5-4b DATASET=fleurs-en-ko
+cd ~/datasets && make install NAME=fleurs/ko_kr
+cd ~/STiTy && make bench CONFIG=asr.qwen-seg-ko+mt.qwen3.5-4b DATASET=fleurs_ko-en
 ```
+
+## 데이터셋은 `make install` 로 설치한다 — 인자는 `recipes.yml` 에 산다
+
+STiTy 의 `make bench` 는 설치하지 않는다. `<이름>/.status` 가 `success` 인 데이터셋만 읽고, 아니면 멈춘다.
+`.status` 는 `make install` 이 성공했을 때만 쓰고, 다시 만들기 시작할 때 지운다.
+**같은 이름은 어느 머신에서나 같은 데이터다** — `SRC`·`TGT` 같은 인자는 손으로 넘기지 않고
+[`recipes.yml`](recipes.yml) 에 데이터셋마다 한 번 적는다. 손으로 돌릴 때도 같다:
+
+```bash
+make install NAME=fleurs/ko_kr            # build.json 이 맞으면 그대로, 아니면 만든다
+make install NAME=fleurs/ko_kr STATUS=1   # {"state": "ok|missing|unrecorded|stale|manual|needs_env", ...}
+make install NAME=fleurs/ko_kr ADOPT=1    # 지금 있는 결과를 다시 만들지 않고 기록하고 .status 를 쓴다
+```
+
+- 만들고 나면 `<이름>/build.json` 에 레시피, 그 데이터를 만드는 스크립트들(코퍼스 디렉토리의 `*.sh`·`*.py`,
+  레시피가 부르는 루트 스크립트, `_contract.py`)의 해시, 데이터셋 리포 commit, manifest 해시가 남는다.
+  셋 중 하나라도 바뀌면 낡은(`stale`) 것으로 보고 다시 만든다. `needs` 로 적힌 원본이 다시 만들어지면
+  그것으로 만든 데이터셋(섞은 것 등)도 낡은 것이 된다.
+- `build.json` 이 생기기 전에 만든 데이터셋(`unrecorded`)은 다시 만들지 않고 있는 그대로 기록한다.
+  내용이 다른 머신과 다르면 STiTy 쪽 공유 검사(manifest 해시)가 실행을 멈춘다.
+- 같은 데이터셋을 두 번 동시에 만들지 않는다 — 만드는 동안 `.locks/<이름>.lock` 을 잡는다.
+  빌드 로그는 `.logs/<이름>.log`.
+- 손으로 받아 넣어야 하는 것(`manual`, enkostc)이나 API 키가 없는 것(`needs_env`, ksponspeech)은
+  무엇을 해야 하는지 알려 주고 exit 3 으로 멈춘다.
+- 변환 끝의 정렬이 GPU 를 쓴다. 공유 GPU 머신에서는 그 머신의 queue 시간대를 피해서 돌린다.
+- 새 데이터셋 디렉토리를 만들면 `recipes.yml` 에 한 줄을 더한다.
+
+| 레시피 키 | 뜻 |
+|---|---|
+| `run` | 이 디렉토리에서 돌릴 셸 명령 |
+| `env` | 결과를 바꾸는 인자. 여기 고정하고 손으로 넘기지 않는다 |
+| `needs` | 먼저 만들어야 하는 데이터셋. 그것이 다시 만들어지면 이것도 낡은 것이 된다 |
+| `needs_env` | 만들 때 필요한 변수(API 키 등). 없으면 exit 3 |
+| `manual` | 스크립트로 못 하는 단계. 데이터셋이 없을 때 이 문장을 보여 주고 exit 3 |
+| `committed` | 변환 결과가 git 에 들어 있다. 만들 것이 없다 |
 
 ## 들어 있는 것
 

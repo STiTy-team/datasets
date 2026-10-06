@@ -1,0 +1,24 @@
+fleurs/ko_kr: {run: bash fleurs/install.sh, env: {SRC: ko_kr, TGT: en_us}}
+fleurs/en_us: {run: bash fleurs/install.sh, env: {SRC: en_us, TGT: ko_kr}}
+fleurs/ko_kr+en_us.level-26:
+  run: uv run python mix.py fleurs --src ko_kr en_us --level -26
+  needs: [fleurs/ko_kr, fleurs/en_us]
+
+acl6060: {run: bash acl6060/install.sh, env: {SOURCE: hf, SPLIT: eval, TGT: de}}
+ami: {run: bash ami/install.sh, env: {SPLIT: test, MIC: ihm-mix}}
+bstc: {run: bash bstc/install.sh}
+covost2/de_en: {run: bash covost2/install.sh, env: {PAIR: de_en, SPLIT: test}}
+earnings22: {run: bash earnings22/install.sh, env: {SUBSET: ""}}
+kosp2e: {run: bash kosp2e/install.sh, env: {PART: test}}
+ksponspeech:
+  run: bash ksponspeech/install.sh
+  env: {SPLIT: eval_clean}
+  needs_env: [AIHUB_APIKEY]
+mcif: {run: bash mcif/install.sh, env: {TGT: de zh}}
+mls/german: {run: bash mls/install.sh, env: {SRC: german, SPLIT: test}}
+notsofar: {run: bash notsofar/install.sh, env: {VERSION: eval_full, DEVICE: sc_meetup_0}}
+tedlium: {run: bash tedlium/install.sh, env: {SPLIT: test}}
+zeroth: {run: bash zeroth/install.sh, env: {SPLIT: test}}
+
+enkostc: {manual: "download the EnKoST-C release from ETRI AI Nanum into enkostc/data/, then run bash enkostc/install.sh -- see enkostc/README.md"}
+northstar-260928: {committed: true}
