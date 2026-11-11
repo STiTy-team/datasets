@@ -2,7 +2,7 @@ augment/ — noise and room impulse responses for bench's `augment` (STiTy bench
 
 Layout: noise/<place>/*.wav and room/<place>/*.wav, 16 kHz mono. _src/ keeps the original
 downloads; bench never reads it (it only looks under noise/<place> and room/<place>).
-Prepared 2026-09-28. Rebuild with ./augment/install.sh (downloads to _src/, then convert.py).
+Prepared 2026-09-28; room/restaurant added 2026-11-11. Rebuild with ./augment/install.sh (downloads to _src/, then convert.py).
 
 noise/cafe/demand_scafe_ch{01,06,11,16}.wav
   Source:  DEMAND (Diverse Environments Multichannel Acoustic Noise Database), environment
@@ -32,3 +32,13 @@ room/hall/arvedi_S0_{A105,A306,A406,A506}_cap1.wav
   Check:   direct-sound peak at 9.7 / 15.3 / 17.8 / 20.7 ms (consistent with ~3.4-7 m),
            36-40 dB above everything before it; Schroeder T20-based RT60 1.28-1.40 s;
            direct-to-reverberant ratio -1 to -3 dB.
+
+room/restaurant/mit_h{093,114,130,155,164,196}.wav
+  Source:  McDermott lab, "Survey of Room Impulse Responses" (MIT IR Survey), Audio.zip,
+           https://mcdermottlab.mit.edu/Reverb/IR_Survey.html. Traer & McDermott, "Statistics of
+           natural reverberation enable perceptual separation of sound and space", PNAS 2016.
+  License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Attribution above.
+  Made:    zip md5 5b934b42e866ef06f88d05ab99acb27a. The six spaces whose name contains
+           Restaurant (four Restaurant, two FastFoodRestaurant), 32 kHz mono -> 16 kHz,
+           peak-normalised to 0.9, written as FLOAT, cut to 2.0 s.
+

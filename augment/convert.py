@@ -5,6 +5,7 @@
 """
 import argparse
 import io
+import re
 import zipfile
 from pathlib import Path
 
@@ -18,6 +19,7 @@ RECEIVERS = ("A105", "A306", "A406", "A506")
 RIR_CAPSULE = 0
 RIR_PEAK = 0.9
 RIR_SECONDS = 2.0
+MIT_RESTAURANT = re.compile(r"Audio/h\d{3}_(?:FastFood)?Restaurant_\w*\.wav")
 
 
 def resample(audio: np.ndarray, sr: int) -> np.ndarray:
@@ -52,6 +54,17 @@ def room_hall(src: Path, out: Path) -> None:
         write(dest, rir * (RIR_PEAK / float(np.abs(rir).max())), "FLOAT")
 
 
+def room_restaurant(src: Path, out: Path) -> None:
+    with zipfile.ZipFile(src / "MIT_IR_Survey.zip") as z:
+        for name in sorted(n for n in z.namelist() if MIT_RESTAURANT.fullmatch(n)):
+            dest = out / "room" / "restaurant" / f"mit_{Path(name).stem.split('_')[0]}.wav"
+            if dest.is_file():
+                continue
+            audio, sr = sf.read(io.BytesIO(z.read(name)), dtype="float32")
+            rir = resample(audio, sr)[: int(RIR_SECONDS * SAMPLE_RATE)]
+            write(dest, rir * (RIR_PEAK / float(np.abs(rir).max())), "FLOAT")
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -63,6 +76,7 @@ def main(argv=None) -> int:
         raise SystemExit(f"no {src}/SCAFE_48k.zip -- run augment/install.sh first.")
     noise_cafe(src, args.out)
     room_hall(src, args.out)
+    room_restaurant(src, args.out)
     return 0
 
 

@@ -31,6 +31,8 @@ SCAFE_URL="https://zenodo.org/records/1227121/files/SCAFE_48k.zip?download=1"
 SCAFE_MD5="1a4ee387f1900f4b15ba219481c76556"
 ARVEDI_URL="https://zenodo.org/records/20098848/files/arvedi_auditorium_dataset.zip?download=1"
 RECEIVERS="A105 A306 A406 A506"
+MIT_URL="https://mcdermottlab.mit.edu/Reverb/IRMAudio/Audio.zip"
+MIT_MD5="5b934b42e866ef06f88d05ab99acb27a"
 
 mkdir -p _src
 
@@ -66,5 +68,15 @@ with RemoteZip(url) as z:
 PY
 fi
 
-echo "[convert] noise/cafe, room/hall"
+if [[ -f _src/MIT_IR_Survey.zip ]] && echo "$MIT_MD5  _src/MIT_IR_Survey.zip" | md5sum -c --status; then
+  echo "[skip] MIT IR Survey already downloaded"
+else
+  echo "[download] MIT IR Survey Audio.zip (12 MB)"
+  curl -fL -C - -o _src/MIT_IR_Survey.zip.part "$MIT_URL"
+  echo "$MIT_MD5  _src/MIT_IR_Survey.zip.part" | md5sum -c --status \
+    || { echo "[ERROR] MIT_IR_Survey.zip md5 mismatch" >&2; rm -f _src/MIT_IR_Survey.zip.part; exit 1; }
+  mv _src/MIT_IR_Survey.zip.part _src/MIT_IR_Survey.zip
+fi
+
+echo "[convert] noise/cafe, room/hall, room/restaurant"
 "${RUN[@]}" convert.py
